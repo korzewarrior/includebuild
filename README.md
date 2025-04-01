@@ -128,7 +128,7 @@ IncludeBuild is released under the MIT License. See [LICENSE](LICENSE) for detai
 
 ## Feedback
 
-Have suggestions or found issues? Please share your [feedback](FEEDBACK.md).
+Have suggestions or found issues? Please [open an issue](https://github.com/korzewarrior/includebuild/issues) on our GitHub repository.
 
 ## Why IncludeBuild?
 
