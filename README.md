@@ -7,7 +7,7 @@
 A minimalist, header-only build system for C/C++ projects that's included directly in your code.
 
 <p align="center">
-  <img src="docs/images/includebuild-banner.png" alt="IncludeBuild Banner" width="600">
+  <img src="docs/images/banner.png" alt="IncludeBuild Banner" width="600">
 </p>
 
 ## Overview
