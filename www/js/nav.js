@@ -73,7 +73,7 @@ function createFallbackNavigation() {
             <a href="${pathPrefix}examples.html">Examples</a>
             <a href="${pathPrefix}faq.html">FAQ</a>
             <a href="${pathPrefix}docs/api.html">API</a>
-            <a href="https://github.com/includebuild/includebuild" class="github-link">GitHub</a>
+            <a href="https://github.com/korzewarrior/includebuild" class="github-link">GitHub</a>
         </div>
     </div>`;
 }

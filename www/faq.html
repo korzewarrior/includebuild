@@ -100,11 +100,11 @@
                             <span class="faq-toggle"></span>
                         </div>
                         <div class="faq-answer">
-                            <p>You have two options:</p>
-                            <ol>
-                                <li><strong>Copy to your project</strong>: Simply copy the <code>build.h</code> file from the <code>src</code> directory to your project.</li>
-                                <li><strong>System-wide installation</strong>: Run <code>make install</code> in the IncludeBuild repository to install it to your system's include path.</li>
-                            </ol>
+                            <p>You can install IncludeBuild by cloning the repository and running the build script:</p>
+                            <pre><code><span class="command">git clone</span> https://github.com/korzewarrior/includebuild.git
+<span class="command">cd</span> includebuild
+<span class="command">./build.sh</span></code></pre>
+                            <p>This will compile the library and make it available for use in your projects.</p>
                         </div>
                     </div>
 
@@ -368,7 +368,7 @@ ib_set_linker_executable(ws, <span class="string">"clang"</span>);</code></pre>
                             <span class="faq-toggle"></span>
                         </div>
                         <div class="faq-answer">
-                            <p>Open an issue on our <a href="https://github.com/includebuild/includebuild/issues" target="_blank">GitHub repository</a> with a detailed description of the bug, including steps to reproduce, expected behavior, and actual behavior.</p>
+                            <p>Open an issue on our <a href="https://github.com/korzewarrior/includebuild/issues" target="_blank">GitHub repository</a> with a detailed description of the bug, including steps to reproduce, expected behavior, and actual behavior.</p>
                         </div>
                     </div>
 
@@ -378,7 +378,12 @@ ib_set_linker_executable(ws, <span class="string">"clang"</span>);</code></pre>
                             <span class="faq-toggle"></span>
                         </div>
                         <div class="faq-answer">
-                            <p>Absolutely! See the <a href="https://github.com/includebuild/includebuild/blob/main/CONTRIBUTING.md" target="_blank">CONTRIBUTING.md</a> file for guidelines on how to contribute.</p>
+                            <p>Yes! IncludeBuild is open source and we welcome contributions. You can find the repository at:
+                            </p>
+                            <pre><code><span>https://github.com/korzewarrior/includebuild</span></code></pre>
+                            <p>
+                                Please read our <a href="https://github.com/korzewarrior/includebuild/blob/main/CONTRIBUTING.md">contribution guidelines</a> before submitting a pull request.
+                            </p>
                         </div>
                     </div>
 
@@ -392,7 +397,7 @@ ib_set_linker_executable(ws, <span class="string">"clang"</span>);</code></pre>
                                 <li>Check the <a href="docs/guide.html">User Guide</a> and <a href="docs/api.html">API Reference</a></li>
                                 <li>Look through the <a href="examples.html">examples</a></li>
                                 <li>Join our <a href="https://discord.gg/includebuild" target="_blank">Discord community</a></li>
-                                <li>Open an issue on our <a href="https://github.com/includebuild/includebuild/issues" target="_blank">GitHub repository</a></li>
+                                <li>Open an issue on our <a href="https://github.com/korzewarrior/includebuild/issues" target="_blank">GitHub repository</a></li>
                             </ul>
                         </div>
                     </div>
@@ -432,8 +437,8 @@ ib_set_linker_executable(ws, <span class="string">"clang"</span>);</code></pre>
                 <div class="footer-column">
                     <h4>Community</h4>
                     <ul>
-                        <li><a href="https://github.com/includebuild/includebuild/discussions">Discussions</a></li>
-                        <li><a href="https://github.com/includebuild/includebuild/blob/main/CONTRIBUTING.md">Contributing</a></li>
+                        <li><a href="https://github.com/korzewarrior/includebuild/discussions">Discussions</a></li>
+                        <li><a href="https://github.com/korzewarrior/includebuild/blob/main/CONTRIBUTING.md">Contributing</a></li>
                         <li><a href="mailto:build@includebuild.com">build@includebuild.com</a></li>
                     </ul>
                 </div>
