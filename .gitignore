@@ -1,0 +1,42 @@
+# Build artifacts
+/build/
+/dist/
+*/build/
+*.o
+*.obj
+*.a
+*.so
+*.dll
+*.dylib
+*.lib
+*.exe
+*.out
+
+# Build script executables 
+/examples/*/build
+
+# Temporary files
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# IDE and editor files
+.vscode/
+.idea/
+*.sublime-*
+*.code-workspace
+
+# Raylib game temp files
+*.wav
+*.ogg
+
+# Documentation generated files
+/docs/html/
+/docs/images/*.png
+/docs/images/*.jpg
+
+# Dependency directories
+/vendor/
+/node_modules/ 

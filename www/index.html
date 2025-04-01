@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IncludeBuild | A Minimal C/C++ Build System</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <script src="js/nav.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <!-- Navigation will be loaded here by JavaScript -->
+        </nav>
+        
+        <div class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>The only build system that feels like part of the language</h1>
+                    <div class="code-block">
+                        <pre><code><span class="keyword">#include</span> <span class="string">"build.h"</span>  <span class="comment">// That's it. You're ready.</span></code></pre>
+                    </div>
+                    <p class="tagline">No build tools, just code.</p>
+                    <div class="cta-buttons">
+                        <a href="#get-started" class="btn btn-primary">Get Started</a>
+                        <a href="https://github.com/includebuild/includebuild" class="github-cta" target="_blank">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                            </svg>
+                            View on GitHub
+                        </a>
+                    </div>
+                </div>
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <span class="terminal-button close"></span>
+                        <span class="terminal-button minimize"></span>
+                        <span class="terminal-button maximize"></span>
+                        <span class="terminal-title">terminal</span>
+                    </div>
+                    <div class="terminal-content">
+                        <div class="terminal-line">
+                            <span class="prompt">$</span> gcc -o build build.c
+                        </div>
+                        <div class="terminal-line">
+                            <span class="prompt">$</span> ./build
+                        </div>
+                        <div class="terminal-line">
+                            <span class="build-output">[INFO] IncludeBuild v1.0.0 initialized</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="build-output">[INFO] Adding source file: main.c</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="build-output">[INFO] Compiling: main.c</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="build-output">[INFO] Linking: my_program</span>
+                        </div>
+                        <div class="terminal-line build-success">
+                            <span class="build-output">[INFO] Build successful in 0.12s</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="prompt">$</span> <span class="cursor"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <section id="features">
+        <div class="container">
+            <h2>Why IncludeBuild?</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16L3 12V8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4l-2 4"/><line x1="16" y1="20" x2="16" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="8" y1="20" x2="8" y2="10"/></svg>
+                    </div>
+                    <h3>Header-Only</h3>
+                    <p>Single file inclusion with no dependencies</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    </div>
+                    <h3>Minimal</h3>
+                    <p>Small API that's easy to learn and use</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    </div>
+                    <h3>Portable</h3>
+                    <p>Works across platforms with no additional requirements</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M17 18a5 5 0 0 1-10 0"/><line x1="12" y1="2" x2="12" y2="9"/><line x1="4.22" y1="10.22" x2="5.64" y2="11.64"/><line x1="1" y1="18" x2="3" y2="18"/><line x1="21" y1="18" x2="23" y2="18"/><line x1="18.36" y1="11.64" x2="19.78" y2="10.22"/><line x1="23" y1="22" x2="1" y2="22"/></svg>
+                    </div>
+                    <h3>Transparent</h3>
+                    <p>Clearly see what's happening during builds</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    </div>
+                    <h3>Fast</h3>
+                    <p>Efficient compilation with parallel build support</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                    </div>
+                    <h3>Flexible</h3>
+                    <p>Handles everything from simple projects to complex builds</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="get-started" class="dark-section">
+        <div class="container">
+            <h2>Get Started in Seconds</h2>
+            <div class="code-example">
+                <div class="code-tabs">
+                    <button class="code-tab active" data-tab="install">Installation</button>
+                    <button class="code-tab" data-tab="build-script">Build Script</button>
+                    <button class="code-tab" data-tab="compile">Compile &amp; Run</button>
+                </div>
+                <div class="code-content">
+                    <div class="code-pane active" id="install">
+                        <pre><code><span class="comment"># Option 1: Copy directly to your project</span>
+<span class="command">cp</span> includebuild/src/build.h your_project/
+
+<span class="comment"># Option 2: System-wide installation</span>
+<span class="command">git clone</span> https://github.com/includebuild/includebuild.git
+<span class="command">cd</span> includebuild
+<span class="command">make install</span></code></pre>
+                    </div>
+                    <div class="code-pane" id="build-script">
+                        <pre><code><span class="comment">// build.c</span>
+<span class="keyword">#include</span> <span class="string">"build.h"</span>
+
+<span class="type">int</span> <span class="function">main</span>() {
+    <span class="comment">// Initialize the build system</span>
+    ib_workspace_t ws = ib_create_workspace();
+    
+    <span class="comment">// Add source files</span>
+    ib_add_source_file(ws, <span class="string">"main.c"</span>);
+    ib_add_source_file(ws, <span class="string">"helper.c"</span>);
+    
+    <span class="comment">// Set output executable name</span>
+    ib_set_output(ws, <span class="string">"my_program"</span>);
+    
+    <span class="comment">// Run the build</span>
+    ib_build(ws);
+    
+    <span class="comment">// Clean up</span>
+    ib_destroy_workspace(ws);
+    <span class="keyword">return</span> 0;
+}</code></pre>
+                    </div>
+                    <div class="code-pane" id="compile">
+                        <pre><code><span class="comment"># Compile your build script</span>
+<span class="command">gcc</span> -o build build.c
+
+<span class="comment"># Run it to build your project</span>
+<span class="command">./build</span>
+
+<span class="comment"># That's it! Now run your program</span>
+<span class="command">./my_program</span></code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="examples">
+        <div class="container">
+            <h2>Examples</h2>
+            <div class="examples-grid">
+                <div class="example-card">
+                    <h3>Basic</h3>
+                    <p>A simple single-file project demonstrating the minimal setup.</p>
+                    <a href="examples.html#basic" class="example-link">View Example</a>
+                </div>
+                <div class="example-card">
+                    <h3>Multi-file</h3>
+                    <p>Building a project with multiple source files and dependencies.</p>
+                    <a href="examples.html#multi-file" class="example-link">View Example</a>
+                </div>
+                <div class="example-card">
+                    <h3>Library</h3>
+                    <p>Building and linking against a static library.</p>
+                    <a href="examples.html#library" class="example-link">View Example</a>
+                </div>
+                <div class="example-card">
+                    <h3>Raylib Pong</h3>
+                    <p>A complete game using external libraries.</p>
+                    <a href="examples.html#raylib-pong" class="example-link">View Example</a>
+                </div>
+            </div>
+            <div class="text-center" style="margin-top: 2rem;">
+                <a href="examples.html" class="btn btn-primary">View All Examples</a>
+            </div>
+        </div>
+    </section>
+    
+    <section id="comparison" class="dark-section">
+        <div class="container">
+            <h2>How does it compare?</h2>
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>IncludeBuild</th>
+                            <th>Make</th>
+                            <th>CMake</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Self-contained</td>
+                            <td><span class="good" aria-label="Good"><span class="indicator">✓</span> Single header</span></td>
+                            <td><span class="bad" aria-label="Bad"><span class="indicator">×</span> Requires Make</span></td>
+                            <td><span class="bad" aria-label="Bad"><span class="indicator">×</span> Requires CMake</span></td>
+                        </tr>
+                        <tr>
+                            <td>Learning curve</td>
+                            <td><span class="good" aria-label="Good"><span class="indicator">✓</span> Just C</span></td>
+                            <td><span class="medium" aria-label="Medium"><span class="indicator">⚠️</span> Custom syntax</span></td>
+                            <td><span class="bad" aria-label="Bad"><span class="indicator">×</span> Complex syntax</span></td>
+                        </tr>
+                        <tr>
+                            <td>Power</td>
+                            <td><span class="medium" aria-label="Medium"><span class="indicator">⚠️</span> Medium</span></td>
+                            <td><span class="good" aria-label="Good"><span class="indicator">✓</span> High</span></td>
+                            <td><span class="good" aria-label="Good"><span class="indicator">✓</span> Very high</span></td>
+                        </tr>
+                        <tr>
+                            <td>Transparency</td>
+                            <td><span class="good" aria-label="Good"><span class="indicator">✓</span> High</span></td>
+                            <td><span class="medium" aria-label="Medium"><span class="indicator">⚠️</span> Medium</span></td>
+                            <td><span class="bad" aria-label="Bad"><span class="indicator">×</span> Low</span></td>
+                        </tr>
+                        <tr>
+                            <td>Large projects</td>
+                            <td><span class="medium" aria-label="Medium"><span class="indicator">⚠️</span> Medium</span></td>
+                            <td><span class="good" aria-label="Good"><span class="indicator">✓</span> Good</span></td>
+                            <td><span class="good" aria-label="Good"><span class="indicator">✓</span> Excellent</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="comparison-quote">
+                <blockquote>
+                    Make has Makefiles. CMake has CMakeLists.txt. IncludeBuild has... nothing. Just code.
+                </blockquote>
+            </div>
+        </div>
+    </section>
+    
+    <section id="docs">
+        <div class="container">
+            <h2>Documentation</h2>
+            <div class="docs-cards">
+                <a href="docs/guide.html" class="docs-card">
+                    <h3>User Guide</h3>
+                    <p>Start here to learn how to use IncludeBuild effectively</p>
+                </a>
+                <a href="docs/api.html" class="docs-card">
+                    <h3>API Reference</h3>
+                    <p>Complete details on all IncludeBuild functions</p>
+                </a>
+                <a href="examples.html" class="docs-card">
+                    <h3>Examples</h3>
+                    <p>Sample projects to help you get started quickly</p>
+                </a>
+                <a href="faq.html" class="docs-card">
+                    <h3>FAQ</h3>
+                    <p>Answers to common questions about IncludeBuild</p>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta-section">
+        <!-- CTA content will be loaded here -->
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <a href="index.html">
+                    <span class="include">#include</span><span class="build">"build.h"</span>
+                </a>
+                <p class="footer-tagline">The only build system that feels like part of the language</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="index.html#features">Features</a></li>
+                        <li><a href="index.html#comparison">Comparison</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="index.html#get-started">Quick Start</a></li>
+                        <li><a href="index.html#docs">Documentation</a></li>
+                        <li><a href="index.html#docs">User Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Community</h4>
+                    <ul>
+                        <li><a href="https://github.com/includebuild/includebuild/discussions">Discussions</a></li>                    
+                        <li><a href="https://github.com/includebuild/includebuild/blob/main/CONTRIBUTING.md">Contributing</a></li>
+                        <li><a href="mailto:build@includebuild.com">build@includebuild.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 IncludeBuild. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="js/main.js"></script>
+    <script>
+        // Load the CTA section
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctaSection = document.querySelector('.cta-section');
+            fetch('includes/cta.html')
+                .then(response => response.text())
+                .then(html => {
+                    ctaSection.innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading CTA section:', error);
+                });
+        });
+    </script>
+</body>
+</html> 

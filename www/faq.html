@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ | IncludeBuild</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <script src="js/nav.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <!-- Navigation will be loaded here by JavaScript -->
+        </nav>
+    </header>
+
+    <section class="faq-hero">
+        <div class="container">
+            <h1>Frequently Asked Questions</h1>
+            <p class="tagline">Everything you need to know about IncludeBuild</p>
+        </div>
+    </section>
+
+    <section id="faq-content">
+        <div class="container">
+            <div class="faq-categories">
+                <a href="#general" class="faq-category active" data-section="general">General</a>
+                <a href="#installation" class="faq-category" data-section="installation">Installation</a>
+                <a href="#usage" class="faq-category" data-section="usage">Usage</a>
+                <a href="#technical" class="faq-category" data-section="technical">Technical</a>
+                <a href="#troubleshooting" class="faq-category" data-section="troubleshooting">Troubleshooting</a>
+                <a href="#support" class="faq-category" data-section="support">Support</a>
+            </div>
+
+            <div class="faq-container">
+                <!-- General Questions -->
+                <div id="general" class="faq-section active">
+                    <h2>General Questions</h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What is IncludeBuild?</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>IncludeBuild is a header-only build system for C/C++ projects. It allows you to define your build process directly in your C/C++ code by including a single header file. This eliminates the need for separate build configuration files like Makefiles or CMakeLists.txt.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Why would I use IncludeBuild instead of Make, CMake, or other build systems?</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>IncludeBuild has several advantages:</p>
+                            <ul>
+                                <li><strong>Simplicity</strong>: It's a single header file with no dependencies</li>
+                                <li><strong>Programmability</strong>: You write your build script in C, a language you already know</li>
+                                <li><strong>No DSL</strong>: No need to learn a domain-specific language</li>
+                                <li><strong>Automatic dependency resolution</strong>: Automatically finds source files and resolves dependencies</li>
+                                <li><strong>Cross-platform</strong>: Works on Linux, macOS, and Windows without configuration</li>
+                                <li><strong>Control</strong>: You have full programmatic control of your build process</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Does IncludeBuild replace IDEs?</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>No, IncludeBuild works alongside IDEs. In fact, many IDEs can run build scripts directly. IncludeBuild handles the compilation and linking of your code, while IDEs provide editing, debugging, and other features.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Is IncludeBuild suitable for large projects?</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>IncludeBuild works well for small to medium-sized projects. For very large projects with complex dependencies and build requirements, you might find that more feature-rich build systems like CMake provide better tools for managing complexity. However, many seemingly complex builds can be simplified with a good project structure, which IncludeBuild encourages.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Installation Questions -->
+                <div id="installation" class="faq-section">
+                    <h2>Installation Questions</h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How do I install IncludeBuild?</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>You have two options:</p>
+                            <ol>
+                                <li><strong>Copy to your project</strong>: Simply copy the <code>build.h</code> file from the <code>src</code> directory to your project.</li>
+                                <li><strong>System-wide installation</strong>: Run <code>make install</code> in the IncludeBuild repository to install it to your system's include path.</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Do I need to compile or build IncludeBuild itself?</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>No. IncludeBuild is header-only, which means you just need to include it in your code. There's no need to compile or build IncludeBuild itself.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Can I use IncludeBuild with IDEs?</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes. Since IncludeBuild is just a C header file, it works with any IDE that supports C/C++ development. Simply include the header in your project and compile your build script like any other C program.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Usage Questions -->
+                <div id="usage" class="faq-section">
+                    <h2>Usage Questions</h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How do I create a basic build script?</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Create a file called <code>build.c</code> with the following content:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="keyword">#include</span> <span class="string">"build.h"</span>
+
+<span class="type">int</span> <span class="function">main</span>() {
+    ib_workspace_t ws = ib_create_workspace();
+    ib_add_source_file(ws, <span class="string">"main.c"</span>);
+    ib_set_output(ws, <span class="string">"my_program"</span>);
+    ib_build(ws);
+    ib_destroy_workspace(ws);
+    <span class="keyword">return</span> 0;
+}</code></pre>
+                            </div>
+                            <p>Compile and run it:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="command">gcc</span> -o build build.c
+<span class="command">./build</span></code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How do I add multiple source files?</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>You can add them individually:</p>
+                            <div class="code-snippet">
+                                <pre><code>ib_add_source_file(ws, <span class="string">"file1.c"</span>);
+ib_add_source_file(ws, <span class="string">"file2.c"</span>);
+ib_add_source_file(ws, <span class="string">"file3.c"</span>);</code></pre>
+                            </div>
+                            <p>Or add all files in a directory:</p>
+                            <div class="code-snippet">
+                                <pre><code>ib_add_source_directory(ws, <span class="string">"src"</span>, <span class="keyword">true</span>); <span class="comment">// true for recursive</span></code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How do I link against libraries?</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Use the library functions:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="comment">// Add a library search directory</span>
+ib_add_library_dir(ws, <span class="string">"/usr/local/lib"</span>);
+
+<span class="comment">// Link against libraries</span>
+ib_add_library(ws, <span class="string">"m"</span>);       <span class="comment">// Math library</span>
+ib_add_library(ws, <span class="string">"pthread"</span>); <span class="comment">// Pthread library</span></code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How do I specify compiler or linker flags?</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Use the flag functions:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="comment">// Compiler flags</span>
+ib_add_compiler_flag(ws, <span class="string">"-Wall"</span>);
+ib_add_compiler_flag(ws, <span class="string">"-O2"</span>);
+
+<span class="comment">// Linker flags</span>
+ib_add_linker_flag(ws, <span class="string">"-static"</span>);</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Can I use a different compiler?</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, you can specify which compiler to use:</p>
+                            <div class="code-snippet">
+                                <pre><code>ib_set_compiler_executable(ws, <span class="string">"clang"</span>);
+ib_set_linker_executable(ws, <span class="string">"clang"</span>);</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technical Questions -->
+                <div id="technical" class="faq-section">
+                    <h2>Technical Questions</h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How does IncludeBuild work internally?</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>IncludeBuild analyzes your source files, constructs the appropriate compiler and linker commands, and executes them to build your project. It handles dependency analysis, incremental builds, and command generation automatically.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What are the size limitations of IncludeBuild?</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>By default, IncludeBuild has the following limits:</p>
+                            <ul>
+                                <li>Maximum source files: 500</li>
+                                <li>Maximum include directories: 50</li>
+                                <li>Maximum library directories: 20</li>
+                            </ul>
+                            <p>You can override these limits by defining macros before including the header:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="keyword">#define</span> IB_MAX_SOURCE_FILES 1000
+<span class="keyword">#define</span> IB_MAX_INCLUDE_DIRS 100
+<span class="keyword">#define</span> IB_MAX_LIBRARY_DIRS 50
+<span class="keyword">#include</span> <span class="string">"build.h"</span></code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Does IncludeBuild support incremental builds?</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes. IncludeBuild checks file timestamps and only rebuilds files that have changed or depend on files that have changed.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How do I clean build artifacts?</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Use the clean function:</p>
+                            <div class="code-snippet">
+                                <pre><code>ib_clean(ws);</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Does IncludeBuild work on all platforms?</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>IncludeBuild is designed to work on Linux, macOS, and Windows. The core functionality should work across all these platforms, but some platform-specific features may vary.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Troubleshooting Questions -->
+                <div id="troubleshooting" class="faq-section">
+                    <h2>Troubleshooting</h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>I'm getting "file not found" errors for standard headers</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Make sure your compiler is correctly installed and that the standard include paths are set up properly. On some systems, you may need to install development packages (e.g., <code>build-essential</code> on Debian/Ubuntu).</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>My build fails without a clear error message</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Always check the return value of <code>ib_build()</code> and use <code>ib_get_last_error()</code> to get detailed error information:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="keyword">if</span> (!ib_build(ws)) {
+    printf(<span class="string">"Build failed: %s\n"</span>, ib_get_last_error(ws));
+    ib_destroy_workspace(ws);
+    <span class="keyword">return</span> 1;
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Can I see more detailed build output?</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, you can increase the log level:</p>
+                            <div class="code-snippet">
+                                <pre><code>ib_set_log_level(ws, IB_LOG_DEBUG);</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>IncludeBuild doesn't find my compiler</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Ensure the compiler is in your PATH, or specify the full path to the compiler:</p>
+                            <div class="code-snippet">
+                                <pre><code>ib_set_compiler_executable(ws, <span class="string">"/path/to/gcc"</span>);</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Support and Contribution Questions -->
+                <div id="support" class="faq-section">
+                    <h2>Support and Contribution</h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How do I report a bug?</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Open an issue on our <a href="https://github.com/includebuild/includebuild/issues" target="_blank">GitHub repository</a> with a detailed description of the bug, including steps to reproduce, expected behavior, and actual behavior.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Can I contribute to IncludeBuild?</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Absolutely! See the <a href="https://github.com/includebuild/includebuild/blob/main/CONTRIBUTING.md" target="_blank">CONTRIBUTING.md</a> file for guidelines on how to contribute.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Where can I get help if my question isn't answered here?</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <ul>
+                                <li>Check the <a href="docs/guide.html">User Guide</a> and <a href="docs/api.html">API Reference</a></li>
+                                <li>Look through the <a href="examples.html">examples</a></li>
+                                <li>Join our <a href="https://discord.gg/includebuild" target="_blank">Discord community</a></li>
+                                <li>Open an issue on our <a href="https://github.com/includebuild/includebuild/issues" target="_blank">GitHub repository</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <!-- CTA will be loaded here by JavaScript -->
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <a href="index.html">
+                    <span class="include">#include</span><span class="build">"build.h"</span>
+                </a>
+                <p class="footer-tagline">The only build system that feels like part of the language</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="index.html#features">Features</a></li>
+                        <li><a href="index.html#comparison">Comparison</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="index.html#get-started">Quick Start</a></li>
+                        <li><a href="index.html#docs">Documentation</a></li>
+                        <li><a href="index.html#docs">User Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Community</h4>
+                    <ul>
+                        <li><a href="https://github.com/includebuild/includebuild/discussions">Discussions</a></li>
+                        <li><a href="https://github.com/includebuild/includebuild/blob/main/CONTRIBUTING.md">Contributing</a></li>
+                        <li><a href="mailto:build@includebuild.com">build@includebuild.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 IncludeBuild. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // FAQ toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // FAQ category tabs
+            const faqCategories = document.querySelectorAll('.faq-category');
+            const faqSections = document.querySelectorAll('.faq-section');
+            
+            faqCategories.forEach(category => {
+                category.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all categories and sections
+                    faqCategories.forEach(cat => cat.classList.remove('active'));
+                    faqSections.forEach(section => section.classList.remove('active'));
+                    
+                    // Add active class to clicked category
+                    this.classList.add('active');
+                    
+                    // Get the target section id from the href attribute
+                    const targetId = this.getAttribute('data-section');
+                    
+                    // Add active class to corresponding section
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+            
+            // FAQ item toggle
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const faqItem = this.parentElement;
+                    
+                    // Check if this item is already open
+                    const isOpen = faqItem.classList.contains('active');
+                    
+                    // Close all open items
+                    document.querySelectorAll('.faq-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    // If it wasn't open before, open it now
+                    if (!isOpen) {
+                        faqItem.classList.add('active');
+                    }
+                });
+            });
+            
+            // Open the first FAQ item by default
+            if (faqQuestions.length > 0) {
+                faqQuestions[0].parentElement.classList.add('active');
+            }
+            
+            // Handle direct links to specific sections
+            const hash = window.location.hash;
+            if (hash) {
+                const targetCategory = document.querySelector(`.faq-category[data-section="${hash.substring(1)}"]`);
+                if (targetCategory) {
+                    targetCategory.click();
+                }
+            }
+        });
+
+        // Load the CTA section
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctaSection = document.querySelector('.cta-section');
+            fetch('includes/cta.html')
+                .then(response => response.text())
+                .then(html => {
+                    ctaSection.innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading CTA section:', error);
+                });
+        });
+    </script>
+</body>
+</html> 

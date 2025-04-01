@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examples | IncludeBuild</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <script src="js/nav.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <!-- Navigation will be loaded here by JavaScript -->
+        </nav>
+    </header>
+
+    <section class="examples-hero">
+        <div class="container">
+            <h1>Example Projects</h1>
+            <p class="tagline">See IncludeBuild in action with these practical examples</p>
+        </div>
+    </section>
+
+    <section id="examples-showcase">
+        <div class="container">
+            <div class="examples-grid large-grid">
+                <!-- Basic Example -->
+                <div class="example-card">
+                    <h3>Basic</h3>
+                    <p>A minimal "Hello, World!" program that demonstrates the simplest use of IncludeBuild. Perfect for beginners.</p>
+                    <div class="example-details">
+                        <div class="example-tag">Beginner</div>
+                        <div class="example-tag">Single File</div>
+                    </div>
+                    <div class="code-snippet">
+                        <pre><code><span class="keyword">#include</span> <span class="string">"build.h"</span>
+
+<span class="type">int</span> <span class="function">main</span>() {
+    ib_workspace_t ws = ib_create_workspace();
+    ib_add_source_file(ws, <span class="string">"main.c"</span>);
+    ib_set_output(ws, <span class="string">"basic"</span>);
+    ib_build(ws);
+    ib_destroy_workspace(ws);
+    <span class="keyword">return</span> 0;
+}</code></pre>
+                    </div>
+                    <a href="https://github.com/includebuild/includebuild/tree/main/examples/basic" class="example-link">View Example</a>
+                </div>
+
+                <!-- Multi-File Example -->
+                <div class="example-card">
+                    <h3>Multi-file</h3>
+                    <p>Demonstrates how IncludeBuild handles a project with multiple source files and shows automatic dependency resolution.</p>
+                    <div class="example-details">
+                        <div class="example-tag">Intermediate</div>
+                        <div class="example-tag">Multiple Files</div>
+                    </div>
+                    <div class="code-snippet">
+                        <pre><code><span class="keyword">#include</span> <span class="string">"build.h"</span>
+
+<span class="type">int</span> <span class="function">main</span>() {
+    ib_workspace_t ws = ib_create_workspace();
+    
+    <span class="comment">// Add all source files</span>
+    ib_add_source_file(ws, <span class="string">"main.c"</span>);
+    ib_add_source_file(ws, <span class="string">"math_utils.c"</span>);
+    ib_add_source_file(ws, <span class="string">"string_utils.c"</span>);
+    
+    <span class="comment">// Dependencies handled automatically</span>
+    ib_set_output(ws, <span class="string">"multi_file"</span>);
+    ib_build(ws);
+    ib_destroy_workspace(ws);
+    <span class="keyword">return</span> 0;
+}</code></pre>
+                    </div>
+                    <a href="https://github.com/includebuild/includebuild/tree/main/examples/multi_file" class="example-link">View Example</a>
+                </div>
+
+                <!-- Library Example -->
+                <div class="example-card">
+                    <h3>Library</h3>
+                    <p>Shows how to create and use static and dynamic libraries with IncludeBuild in your C/C++ projects.</p>
+                    <div class="example-details">
+                        <div class="example-tag">Advanced</div>
+                        <div class="example-tag">Libraries</div>
+                    </div>
+                    <div class="code-snippet">
+                        <pre><code><span class="keyword">#include</span> <span class="string">"build.h"</span>
+
+<span class="type">int</span> <span class="function">main</span>() {
+    ib_workspace_t ws = ib_create_workspace();
+    
+    <span class="comment">// Build a static library</span>
+    ib_add_source_file(ws, <span class="string">"src/logger.c"</span>);
+    ib_set_output_type(ws, IB_STATIC_LIB);
+    ib_set_output(ws, <span class="string">"liblogger.a"</span>);
+    ib_build(ws);
+    
+    <span class="comment">// Use the library in an executable</span>
+    ib_reset_workspace(ws);
+    ib_add_source_file(ws, <span class="string">"main.c"</span>);
+    ib_add_library(ws, <span class="string">"logger"</span>, <span class="string">"."</span>);
+    ib_set_output(ws, <span class="string">"library_example"</span>);
+    ib_build(ws);
+    
+    ib_destroy_workspace(ws);
+    <span class="keyword">return</span> 0;
+}</code></pre>
+                    </div>
+                    <a href="https://github.com/includebuild/includebuild/tree/main/examples/library" class="example-link">View Example</a>
+                </div>
+
+                <!-- Raylib Pong Example -->
+                <div class="example-card">
+                    <h3>Raylib Pong</h3>
+                    <p>A complete Pong game built with Raylib, showing how IncludeBuild handles external libraries and game development.</p>
+                    <div class="example-details">
+                        <div class="example-tag">Game</div>
+                        <div class="example-tag">External Libraries</div>
+                    </div>
+                    <div class="code-snippet">
+                        <pre><code><span class="keyword">#include</span> <span class="string">"build.h"</span>
+
+<span class="type">int</span> <span class="function">main</span>() {
+    ib_workspace_t ws = ib_create_workspace();
+    
+    <span class="comment">// Add source files</span>
+    ib_add_source_file(ws, <span class="string">"raypong.c"</span>);
+    ib_add_source_file(ws, <span class="string">"main.c"</span>);
+    
+    <span class="comment">// Link with Raylib</span>
+    ib_add_system_library(ws, <span class="string">"raylib"</span>);
+    
+    <span class="comment">// Platform-specific settings</span>
+    <span class="keyword">#ifdef</span> _WIN32
+    ib_add_compiler_flag(ws, <span class="string">"-lopengl32"</span>);
+    ib_add_compiler_flag(ws, <span class="string">"-lgdi32"</span>);
+    <span class="keyword">#endif</span>
+    
+    ib_set_output(ws, <span class="string">"pong"</span>);
+    ib_build(ws);
+    ib_destroy_workspace(ws);
+    <span class="keyword">return</span> 0;
+}</code></pre>
+                    </div>
+                    <a href="https://github.com/includebuild/includebuild/tree/main/examples/raylib-pong" class="example-link">View Example</a>
+                </div>
+
+                <!-- Logging Example -->
+                <div class="example-card">
+                    <h3>Logging</h3>
+                    <p>Demonstrates the enhanced logging features of IncludeBuild, including different log levels and customization.</p>
+                    <div class="example-details">
+                        <div class="example-tag">Utility</div>
+                        <div class="example-tag">Debug</div>
+                    </div>
+                    <div class="code-snippet">
+                        <pre><code><span class="keyword">#include</span> <span class="string">"build.h"</span>
+
+<span class="type">int</span> <span class="function">main</span>() {
+    ib_workspace_t ws = ib_create_workspace();
+    
+    <span class="comment">// Set log level to debug</span>
+    ib_set_log_level(ws, IB_LOG_DEBUG);
+    
+    <span class="comment">// Add source files</span>
+    ib_add_source_file(ws, <span class="string">"main.c"</span>);
+    ib_add_source_file(ws, <span class="string">"app.c"</span>);
+    
+    <span class="comment">// Full detailed output with debug info</span>
+    ib_set_output(ws, <span class="string">"logging_example"</span>);
+    ib_build(ws);
+    ib_destroy_workspace(ws);
+    <span class="keyword">return</span> 0;
+}</code></pre>
+                    </div>
+                    <a href="https://github.com/includebuild/includebuild/tree/main/examples/logging" class="example-link">View Example</a>
+                </div>
+
+                <!-- Custom Limits Example -->
+                <div class="example-card">
+                    <h3>Custom Limits</h3>
+                    <p>Shows how to customize the build system limits to support larger projects while maintaining minimalism.</p>
+                    <div class="example-details">
+                        <div class="example-tag">Advanced</div>
+                        <div class="example-tag">Customization</div>
+                    </div>
+                    <div class="code-snippet">
+                        <pre><code><span class="comment">// Define custom limits before including build.h</span>
+<span class="keyword">#define</span> IB_MAX_FILES 1000
+<span class="keyword">#define</span> IB_MAX_DEPENDENCIES 5000
+<span class="keyword">#define</span> IB_MAX_FLAGS 100
+<span class="keyword">#define</span> IB_MAX_INCLUDE_DIRS 50
+
+<span class="keyword">#include</span> <span class="string">"build.h"</span>
+
+<span class="type">int</span> <span class="function">main</span>() {
+    ib_workspace_t ws = ib_create_workspace();
+    
+    <span class="comment">// Now you can handle much larger projects</span>
+    ib_add_source_file(ws, <span class="string">"main.c"</span>);
+    ib_add_source_file(ws, <span class="string">"app.c"</span>);
+    
+    ib_set_output(ws, <span class="string">"custom_limits"</span>);
+    ib_build(ws);
+    ib_destroy_workspace(ws);
+    <span class="keyword">return</span> 0;
+}</code></pre>
+                    </div>
+                    <a href="https://github.com/includebuild/includebuild/tree/main/examples/custom_limits" class="example-link">View Example</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-to-run" class="dark-section">
+        <div class="container">
+            <h2>How to Run These Examples</h2>
+            <div class="code-example">
+                <div class="code-tabs">
+                    <button class="code-tab active" data-tab="clone">Clone Repository</button>
+                    <button class="code-tab" data-tab="navigate">Navigate to Example</button>
+                    <button class="code-tab" data-tab="build">Build and Run</button>
+                </div>
+                <div class="code-content">
+                    <div class="code-pane active" id="clone">
+                        <pre><code><span class="comment"># Clone the IncludeBuild repository</span>
+<span class="command">git clone</span> https://github.com/includebuild/includebuild.git
+<span class="command">cd</span> includebuild</code></pre>
+                    </div>
+                    <div class="code-pane" id="navigate">
+                        <pre><code><span class="comment"># Choose an example to try</span>
+<span class="command">cd</span> examples/basic
+
+<span class="comment"># Or any other example</span>
+<span class="command">cd</span> examples/multi_file
+<span class="command">cd</span> examples/library
+<span class="command">cd</span> examples/raylib-pong
+<span class="command">cd</span> examples/logging
+<span class="command">cd</span> examples/custom_limits</code></pre>
+                    </div>
+                    <div class="code-pane" id="build">
+                        <pre><code><span class="comment"># Compile the build script</span>
+<span class="command">gcc</span> -o build build.c
+
+<span class="comment"># Run the build</span>
+<span class="command">./build</span>
+
+<span class="comment"># Run the resulting program</span>
+<span class="command">./basic</span>  <span class="comment"># or the name of the executable</span></code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="modify-examples">
+        <div class="container">
+            <h2>Modify and Experiment</h2>
+            <p>These examples are meant to be modified and experimented with. Here are some suggestions:</p>
+            
+            <div class="suggestions-grid">
+                <div class="suggestion-card">
+                    <h3>Add More Source Files</h3>
+                    <p>Try adding more source files to see how IncludeBuild handles dependency management automatically.</p>
+                </div>
+                <div class="suggestion-card">
+                    <h3>Change Compiler Flags</h3>
+                    <p>Experiment with different compiler flags to see how they affect the build process and output.</p>
+                </div>
+                <div class="suggestion-card">
+                    <h3>Cross-Platform Support</h3>
+                    <p>Add platform-specific code to make your builds work correctly across different operating systems.</p>
+                </div>
+                <div class="suggestion-card">
+                    <h3>Create Your Own Example</h3>
+                    <p>Once you're comfortable, try creating your own example project with IncludeBuild!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <!-- CTA will be loaded here by JavaScript -->
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <a href="index.html">
+                    <span class="include">#include</span><span class="build">"build.h"</span>
+                </a>
+                <p class="footer-tagline">The only build system that feels like part of the language</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="index.html#features">Features</a></li>
+                        <li><a href="index.html#comparison">Comparison</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="index.html#get-started">Quick Start</a></li>
+                        <li><a href="index.html#docs">Documentation</a></li>
+                        <li><a href="index.html#docs">User Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Community</h4>
+                    <ul>
+                        <li><a href="https://github.com/includebuild/includebuild/discussions">Discussions</a></li>
+                        <li><a href="https://github.com/includebuild/includebuild/blob/main/CONTRIBUTING.md">Contributing</a></li>
+                        <li><a href="mailto:build@includebuild.com">build@includebuild.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 IncludeBuild. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Load the CTA section
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctaSection = document.querySelector('.cta-section');
+            fetch('includes/cta.html')
+                .then(response => response.text())
+                .then(html => {
+                    ctaSection.innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading CTA section:', error);
+                });
+        });
+    </script>
+</body>
+</html> 
