@@ -431,13 +431,12 @@ ib_set_linker_executable(ws, <span class="string">"clang"</span>);</code></pre>
                     <ul>
                         <li><a href="index.html#get-started">Quick Start</a></li>
                         <li><a href="index.html#docs">Documentation</a></li>
-                        <li><a href="index.html#docs">User Guide</a></li>
+                        <li><a href="docs/guide.html">User Guide</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h4>Community</h4>
                     <ul>
-                        <li><a href="https://github.com/korzewarrior/includebuild/discussions">Discussions</a></li>
                         <li><a href="https://github.com/korzewarrior/includebuild/blob/main/CONTRIBUTING.md">Contributing</a></li>
                         <li><a href="mailto:build@includebuild.com">build@includebuild.com</a></li>
                     </ul>
@@ -451,8 +450,18 @@ ib_set_linker_executable(ws, <span class="string">"clang"</span>);</code></pre>
 
     <script src="js/main.js"></script>
     <script>
-        // FAQ toggle functionality
         document.addEventListener('DOMContentLoaded', function() {
+            // Load the CTA section
+            const ctaSection = document.querySelector('.cta-section');
+            fetch('includes/cta.html')
+                .then(response => response.text())
+                .then(html => {
+                    ctaSection.innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading CTA section:', error);
+                });
+                
             // FAQ category tabs
             const faqCategories = document.querySelectorAll('.faq-category');
             const faqSections = document.querySelectorAll('.faq-section');
@@ -468,7 +477,7 @@ ib_set_linker_executable(ws, <span class="string">"clang"</span>);</code></pre>
                     // Add active class to clicked category
                     this.classList.add('active');
                     
-                    // Get the target section id from the href attribute
+                    // Get the target section id from the data-section attribute
                     const targetId = this.getAttribute('data-section');
                     
                     // Add active class to corresponding section
@@ -476,25 +485,14 @@ ib_set_linker_executable(ws, <span class="string">"clang"</span>);</code></pre>
                 });
             });
             
-            // FAQ item toggle
+            // FAQ item toggle - allow multiple items to be open
             const faqQuestions = document.querySelectorAll('.faq-question');
             
             faqQuestions.forEach(question => {
                 question.addEventListener('click', function() {
+                    // Simply toggle the active class on this item
                     const faqItem = this.parentElement;
-                    
-                    // Check if this item is already open
-                    const isOpen = faqItem.classList.contains('active');
-                    
-                    // Close all open items
-                    document.querySelectorAll('.faq-item').forEach(item => {
-                        item.classList.remove('active');
-                    });
-                    
-                    // If it wasn't open before, open it now
-                    if (!isOpen) {
-                        faqItem.classList.add('active');
-                    }
+                    faqItem.classList.toggle('active');
                 });
             });
             
@@ -511,19 +509,6 @@ ib_set_linker_executable(ws, <span class="string">"clang"</span>);</code></pre>
                     targetCategory.click();
                 }
             }
-        });
-
-        // Load the CTA section
-        document.addEventListener('DOMContentLoaded', function() {
-            const ctaSection = document.querySelector('.cta-section');
-            fetch('includes/cta.html')
-                .then(response => response.text())
-                .then(html => {
-                    ctaSection.innerHTML = html;
-                })
-                .catch(error => {
-                    console.error('Error loading CTA section:', error);
-                });
         });
     </script>
 </body>

@@ -28,168 +28,51 @@
     <section id="api-content">
         <div class="container">
             <div class="faq-categories api-categories">
-                <a href="#workspace-management" class="faq-category active" data-section="workspace-management">Workspace Management</a>
-                <a href="#source-files" class="faq-category" data-section="source-files">Source Files</a>
-                <a href="#compilation" class="faq-category" data-section="compilation">Compilation</a>
+                <a href="#core-functions" class="faq-category active" data-section="core-functions">Core Functions</a>
+                <a href="#configuration" class="faq-category" data-section="configuration">Configuration</a>
                 <a href="#libraries" class="faq-category" data-section="libraries">Libraries</a>
-                <a href="#flags" class="faq-category" data-section="flags">Compiler & Linker Flags</a>
-                <a href="#output" class="faq-category" data-section="output">Output Config</a>
                 <a href="#logging" class="faq-category" data-section="logging">Logging</a>
-                <a href="#error-handling" class="faq-category" data-section="error-handling">Error Handling</a>
+                <a href="#library-building" class="faq-category" data-section="library-building">Library Building</a>
+                <a href="#advanced" class="faq-category" data-section="advanced">Advanced</a>
             </div>
 
             <div class="faq-container api-container">
-                <!-- Workspace Management -->
-                <div id="workspace-management" class="faq-section api-section active">
-                    <h2>Workspace Management</h2>
+                <!-- Core Functions -->
+                <div id="core-functions" class="faq-section api-section active">
+                    <h2>Core Functions</h2>
                     
                     <div class="faq-item api-function-item">
                         <div class="faq-question">
-                            <h3>ib_create_workspace</h3>
-                            <p class="api-brief">Creates a new IncludeBuild workspace. The workspace is the main structure used to manage build configuration.</p>
+                            <h3>ib_init</h3>
+                            <p class="api-brief">Initializes IncludeBuild with default settings.</p>
                             <span class="faq-toggle"></span>
                         </div>
                         <div class="faq-answer">
-                            <pre class="function-signature"><code>ib_workspace_t ib_create_workspace(void)</code></pre>
-                            <div class="api-returns">
-                                <h4>Returns:</h4>
-                                <p>A new workspace instance.</p>
-                            </div>
+                            <pre class="function-signature"><code>void ib_init(void)</code></pre>
                             <div class="api-example">
                                 <h4>Example:</h4>
-                                <pre><code><span class="keyword">ib_workspace_t</span> ws = ib_create_workspace();</code></pre>
+                                <pre><code>ib_init();</code></pre>
                             </div>
                         </div>
                     </div>
 
-                    <div class="faq-item api-function-item">
-                        <div class="faq-question">
-                            <h3>ib_destroy_workspace</h3>
-                            <p class="api-brief">Destroys a workspace and frees all associated resources.</p>
-                            <span class="faq-toggle"></span>
-                        </div>
-                        <div class="faq-answer">
-                            <pre class="function-signature"><code>void ib_destroy_workspace(ib_workspace_t workspace)</code></pre>
-                            <div class="api-params">
-                                <h4>Parameters:</h4>
-                                <ul>
-                                    <li><code>workspace</code>: The workspace to destroy.</li>
-                                </ul>
-                            </div>
-                            <div class="api-example">
-                                <h4>Example:</h4>
-                                <pre><code>ib_destroy_workspace(ws);</code></pre>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="faq-item api-function-item">
-                        <div class="faq-question">
-                            <h3>ib_reset_workspace</h3>
-                            <p class="api-brief">Resets a workspace to its initial state, clearing all configuration while maintaining the same workspace instance.</p>
-                            <span class="faq-toggle"></span>
-                        </div>
-                        <div class="faq-answer">
-                            <pre class="function-signature"><code>void ib_reset_workspace(ib_workspace_t workspace)</code></pre>
-                            <div class="api-params">
-                                <h4>Parameters:</h4>
-                                <ul>
-                                    <li><code>workspace</code>: The workspace to reset.</li>
-                                </ul>
-                            </div>
-                            <div class="api-example">
-                                <h4>Example:</h4>
-                                <pre><code>ib_reset_workspace(ws);</code></pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Source Files -->
-                <div id="source-files" class="faq-section api-section">
-                    <h2>Source Files</h2>
-                    
-                    <div class="faq-item api-function-item">
-                        <div class="faq-question">
-                            <h3>ib_add_source_file</h3>
-                            <p class="api-brief">Adds a source file to the workspace for compilation.</p>
-                            <span class="faq-toggle"></span>
-                        </div>
-                        <div class="faq-answer">
-                            <pre class="function-signature"><code>bool ib_add_source_file(ib_workspace_t workspace, const char* file_path)</code></pre>
-                            <div class="api-params">
-                                <h4>Parameters:</h4>
-                                <ul>
-                                    <li><code>workspace</code>: The workspace instance.</li>
-                                    <li><code>file_path</code>: Path to the source file.</li>
-                                </ul>
-                            </div>
-                            <div class="api-returns">
-                                <h4>Returns:</h4>
-                                <p><code>true</code> if the file was added successfully, <code>false</code> otherwise.</p>
-                            </div>
-                            <div class="api-example">
-                                <h4>Example:</h4>
-                                <pre><code>ib_add_source_file(ws, <span class="string">"src/main.c"</span>);</code></pre>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="faq-item api-function-item">
-                        <div class="faq-question">
-                            <h3>ib_add_source_directory</h3>
-                            <p class="api-brief">Adds all source files in a directory to the workspace.</p>
-                            <span class="faq-toggle"></span>
-                        </div>
-                        <div class="faq-answer">
-                            <pre class="function-signature"><code>bool ib_add_source_directory(ib_workspace_t workspace, const char* directory_path, bool recursive)</code></pre>
-                            <div class="api-params">
-                                <h4>Parameters:</h4>
-                                <ul>
-                                    <li><code>workspace</code>: The workspace instance.</li>
-                                    <li><code>directory_path</code>: Path to the directory containing source files.</li>
-                                    <li><code>recursive</code>: If <code>true</code>, includes files in subdirectories.</li>
-                                </ul>
-                            </div>
-                            <div class="api-returns">
-                                <h4>Returns:</h4>
-                                <p><code>true</code> if the directory was processed successfully, <code>false</code> otherwise.</p>
-                            </div>
-                            <div class="api-example">
-                                <h4>Example:</h4>
-                                <pre><code>ib_add_source_directory(ws, <span class="string">"src"</span>, <span class="keyword">true</span>);</code></pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Compilation -->
-                <div id="compilation" class="faq-section api-section">
-                    <h2>Compilation</h2>
-                    
                     <div class="faq-item api-function-item">
                         <div class="faq-question">
                             <h3>ib_build</h3>
-                            <p class="api-brief">Builds the project with the current workspace configuration.</p>
+                            <p class="api-brief">Builds the project. Automatically finds source files, resolves dependencies, and compiles what's needed.</p>
                             <span class="faq-toggle"></span>
                         </div>
                         <div class="faq-answer">
-                            <pre class="function-signature"><code>bool ib_build(ib_workspace_t workspace)</code></pre>
-                            <div class="api-params">
-                                <h4>Parameters:</h4>
-                                <ul>
-                                    <li><code>workspace</code>: The workspace instance.</li>
-                                </ul>
-                            </div>
+                            <pre class="function-signature"><code>bool ib_build(void)</code></pre>
                             <div class="api-returns">
                                 <h4>Returns:</h4>
                                 <p><code>true</code> if the build was successful, <code>false</code> otherwise.</p>
                             </div>
                             <div class="api-example">
                                 <h4>Example:</h4>
-                                <pre><code><span class="keyword">if</span> (!ib_build(ws)) {
-    printf(<span class="string">"Build failed: %s\n"</span>, ib_get_last_error(ws));
-    <span class="keyword">return</span> 1;
+                                <pre><code>if (!ib_build()) {
+    printf("Build failed!\n");
+    return 1;
 }</code></pre>
                             </div>
                         </div>
@@ -198,248 +81,396 @@
                     <div class="faq-item api-function-item">
                         <div class="faq-question">
                             <h3>ib_clean</h3>
-                            <p class="api-brief">Cleans build artifacts for the current workspace.</p>
+                            <p class="api-brief">Cleans up all build artifacts.</p>
                             <span class="faq-toggle"></span>
                         </div>
                         <div class="faq-answer">
-                            <pre class="function-signature"><code>bool ib_clean(ib_workspace_t workspace)</code></pre>
+                            <pre class="function-signature"><code>void ib_clean(void)</code></pre>
+                            <div class="api-example">
+                                <h4>Example:</h4>
+                                <pre><code>ib_clean();</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item api-function-item">
+                        <div class="faq-question">
+                            <h3>ib_add_target</h3>
+                            <p class="api-brief">Adds a specific build target with a main source file.</p>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <pre class="function-signature"><code>void ib_add_target(const char* name, const char* main_source)</code></pre>
                             <div class="api-params">
                                 <h4>Parameters:</h4>
                                 <ul>
-                                    <li><code>workspace</code>: The workspace instance.</li>
+                                    <li><code>name</code>: Name of the target (output executable name).</li>
+                                    <li><code>main_source</code>: Path to the main source file.</li>
                                 </ul>
-                            </div>
-                            <div class="api-returns">
-                                <h4>Returns:</h4>
-                                <p><code>true</code> if cleaning was successful, <code>false</code> otherwise.</p>
                             </div>
                             <div class="api-example">
                                 <h4>Example:</h4>
-                                <pre><code>ib_clean(ws);</code></pre>
+                                <pre><code>ib_add_target("my_app", "main.c");</code></pre>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Libraries -->
+                <!-- Configuration Section -->
+                <div id="configuration" class="faq-section api-section">
+                    <h2>Configuration</h2>
+                    
+                    <div class="faq-item api-function-item">
+                        <div class="faq-question">
+                            <h3>ib_add_include_dir</h3>
+                            <p class="api-brief">Adds a directory to the include search path.</p>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <pre class="function-signature"><code>void ib_add_include_dir(const char* dir)</code></pre>
+                            <div class="api-params">
+                                <h4>Parameters:</h4>
+                                <ul>
+                                    <li><code>dir</code>: Path to the directory to include.</li>
+                                </ul>
+                            </div>
+                            <div class="api-example">
+                                <h4>Example:</h4>
+                                <pre><code>ib_add_include_dir("include");</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item api-function-item">
+                        <div class="faq-question">
+                            <h3>ib_exclude_file</h3>
+                            <p class="api-brief">Excludes a file or pattern from the build.</p>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <pre class="function-signature"><code>void ib_exclude_file(const char* file)</code></pre>
+                            <div class="api-params">
+                                <h4>Parameters:</h4>
+                                <ul>
+                                    <li><code>file</code>: File path or pattern (e.g., "test_*.c") to exclude.</li>
+                                </ul>
+                            </div>
+                            <div class="api-example">
+                                <h4>Example:</h4>
+                                <pre><code>ib_exclude_file("test_*.c");  // Exclude all test files
+ib_exclude_file("build.c");   // Exclude the build script itself</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item api-function-item">
+                        <div class="faq-question">
+                            <h3>ib_reset_config</h3>
+                            <p class="api-brief">Resets the build configuration to default values.</p>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <pre class="function-signature"><code>void ib_reset_config(void)</code></pre>
+                            <div class="api-example">
+                                <h4>Example:</h4>
+                                <pre><code>ib_reset_config();  // Reset to defaults</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Libraries Section -->
                 <div id="libraries" class="faq-section api-section">
                     <h2>Libraries</h2>
                     
                     <div class="faq-item api-function-item">
                         <div class="faq-question">
                             <h3>ib_add_library</h3>
-                            <p class="api-brief">Adds a library to link against.</p>
+                            <p class="api-brief">Adds a library to link with.</p>
                             <span class="faq-toggle"></span>
                         </div>
                         <div class="faq-answer">
-                            <pre class="function-signature"><code>bool ib_add_library(ib_workspace_t workspace, const char* library_name, const char* search_path)</code></pre>
+                            <pre class="function-signature"><code>void ib_add_library(const char* library)</code></pre>
                             <div class="api-params">
                                 <h4>Parameters:</h4>
                                 <ul>
-                                    <li><code>workspace</code>: The workspace instance.</li>
-                                    <li><code>library_name</code>: Name of the library (without the "lib" prefix or file extension).</li>
-                                    <li><code>search_path</code>: Optional search path for the library. Pass <code>NULL</code> to use system paths.</li>
+                                    <li><code>library</code>: Name of the library to link with (without "lib" prefix or file extension)</li>
                                 </ul>
-                            </div>
-                            <div class="api-returns">
-                                <h4>Returns:</h4>
-                                <p><code>true</code> if the library was added successfully, <code>false</code> otherwise.</p>
                             </div>
                             <div class="api-example">
                                 <h4>Example:</h4>
-                                <pre><code>ib_add_library(ws, <span class="string">"pthread"</span>, <span class="keyword">NULL</span>);</code></pre>
+                                <pre><code>ib_add_library("m");      // Link with the math library
+ib_add_library("pthread"); // Link with the pthread library</code></pre>
                             </div>
                         </div>
                     </div>
 
                     <div class="faq-item api-function-item">
                         <div class="faq-question">
-                            <h3>ib_add_library_dir</h3>
+                            <h3>ib_add_libraries</h3>
+                            <p class="api-brief">Adds multiple libraries to link with in a single call.</p>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <pre class="function-signature"><code>void ib_add_libraries(const char* first, ...)</code></pre>
+                            <div class="api-params">
+                                <h4>Parameters:</h4>
+                                <ul>
+                                    <li><code>first</code>: Name of the first library to link with</li>
+                                    <li><code>...</code>: Additional libraries (must end with NULL)</li>
+                                </ul>
+                            </div>
+                            <div class="api-example">
+                                <h4>Example:</h4>
+                                <pre><code>ib_add_libraries("m", "pthread", "dl", NULL);</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item api-function-item">
+                        <div class="faq-question">
+                            <h3>ib_add_library_path</h3>
                             <p class="api-brief">Adds a directory to search for libraries.</p>
                             <span class="faq-toggle"></span>
                         </div>
                         <div class="faq-answer">
-                            <pre class="function-signature"><code>bool ib_add_library_dir(ib_workspace_t workspace, const char* directory_path)</code></pre>
+                            <pre class="function-signature"><code>void ib_add_library_path(const char* path)</code></pre>
                             <div class="api-params">
                                 <h4>Parameters:</h4>
                                 <ul>
-                                    <li><code>workspace</code>: The workspace instance.</li>
-                                    <li><code>directory_path</code>: Path to the directory containing libraries.</li>
+                                    <li><code>path</code>: Path to the directory containing libraries</li>
                                 </ul>
-                            </div>
-                            <div class="api-returns">
-                                <h4>Returns:</h4>
-                                <p><code>true</code> if the directory was added successfully, <code>false</code> otherwise.</p>
                             </div>
                             <div class="api-example">
                                 <h4>Example:</h4>
-                                <pre><code>ib_add_library_dir(ws, <span class="string">"/usr/local/lib"</span>);</code></pre>
+                                <pre><code>ib_add_library_path("lib");
+ib_add_library_path("/usr/local/lib");</code></pre>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Compiler and Linker Flags -->
-                <div id="flags" class="faq-section api-section">
-                    <h2>Compiler and Linker Flags</h2>
-                    
-                    <div class="faq-item api-function-item">
-                        <div class="faq-question">
-                            <h3>ib_add_compiler_flag</h3>
-                            <p class="api-brief">Adds a compiler flag to use during compilation.</p>
-                            <span class="faq-toggle"></span>
-                        </div>
-                        <div class="faq-answer">
-                            <pre class="function-signature"><code>bool ib_add_compiler_flag(ib_workspace_t workspace, const char* flag)</code></pre>
-                            <div class="api-params">
-                                <h4>Parameters:</h4>
-                                <ul>
-                                    <li><code>workspace</code>: The workspace instance.</li>
-                                    <li><code>flag</code>: The compiler flag to add.</li>
-                                </ul>
-                            </div>
-                            <div class="api-returns">
-                                <h4>Returns:</h4>
-                                <p><code>true</code> if the flag was added successfully, <code>false</code> otherwise.</p>
-                            </div>
-                            <div class="api-example">
-                                <h4>Example:</h4>
-                                <pre><code>ib_add_compiler_flag(ws, <span class="string">"-Wall"</span>);
-ib_add_compiler_flag(ws, <span class="string">"-O2"</span>);</code></pre>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="faq-item api-function-item">
-                        <div class="faq-question">
-                            <h3>ib_add_linker_flag</h3>
-                            <p class="api-brief">Adds a linker flag to use during linking.</p>
-                            <span class="faq-toggle"></span>
-                        </div>
-                        <div class="faq-answer">
-                            <pre class="function-signature"><code>bool ib_add_linker_flag(ib_workspace_t workspace, const char* flag)</code></pre>
-                            <div class="api-params">
-                                <h4>Parameters:</h4>
-                                <ul>
-                                    <li><code>workspace</code>: The workspace instance.</li>
-                                    <li><code>flag</code>: The linker flag to add.</li>
-                                </ul>
-                            </div>
-                            <div class="api-returns">
-                                <h4>Returns:</h4>
-                                <p><code>true</code> if the flag was added successfully, <code>false</code> otherwise.</p>
-                            </div>
-                            <div class="api-example">
-                                <h4>Example:</h4>
-                                <pre><code>ib_add_linker_flag(ws, <span class="string">"-static"</span>);</code></pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Output Configuration -->
-                <div id="output" class="faq-section api-section">
-                    <h2>Output Configuration</h2>
-                    
-                    <div class="faq-item api-function-item">
-                        <div class="faq-question">
-                            <h3>ib_set_output</h3>
-                            <p class="api-brief">Sets the name of the output executable or library.</p>
-                            <span class="faq-toggle"></span>
-                        </div>
-                        <div class="faq-answer">
-                            <pre class="function-signature"><code>void ib_set_output(ib_workspace_t workspace, const char* output_name)</code></pre>
-                            <div class="api-params">
-                                <h4>Parameters:</h4>
-                                <ul>
-                                    <li><code>workspace</code>: The workspace instance.</li>
-                                    <li><code>output_name</code>: The name of the output file.</li>
-                                </ul>
-                            </div>
-                            <div class="api-example">
-                                <h4>Example:</h4>
-                                <pre><code>ib_set_output(ws, <span class="string">"my_program"</span>);</code></pre>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="faq-item api-function-item">
-                        <div class="faq-question">
-                            <h3>ib_set_output_dir</h3>
-                            <p class="api-brief">Sets the directory for output files.</p>
-                            <span class="faq-toggle"></span>
-                        </div>
-                        <div class="faq-answer">
-                            <pre class="function-signature"><code>void ib_set_output_dir(ib_workspace_t workspace, const char* output_dir)</code></pre>
-                            <div class="api-params">
-                                <h4>Parameters:</h4>
-                                <ul>
-                                    <li><code>workspace</code>: The workspace instance.</li>
-                                    <li><code>output_dir</code>: The directory for output files.</li>
-                                </ul>
-                            </div>
-                            <div class="api-example">
-                                <h4>Example:</h4>
-                                <pre><code>ib_set_output_dir(ws, <span class="string">"build"</span>);</code></pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Logging and Debugging -->
+                <!-- Logging Section -->
                 <div id="logging" class="faq-section api-section">
-                    <h2>Logging and Debugging</h2>
+                    <h2>Logging</h2>
                     
                     <div class="faq-item api-function-item">
                         <div class="faq-question">
                             <h3>ib_set_log_level</h3>
-                            <p class="api-brief">Sets the log level for the build process.</p>
+                            <p class="api-brief">Sets the logging verbosity level.</p>
                             <span class="faq-toggle"></span>
                         </div>
                         <div class="faq-answer">
-                            <pre class="function-signature"><code>void ib_set_log_level(ib_workspace_t workspace, ib_log_level_t level)</code></pre>
+                            <pre class="function-signature"><code>void ib_set_log_level(ib_log_level level)</code></pre>
                             <div class="api-params">
                                 <h4>Parameters:</h4>
                                 <ul>
-                                    <li><code>workspace</code>: The workspace instance.</li>
-                                    <li><code>level</code>: The log level (IB_LOG_NONE, IB_LOG_ERROR, IB_LOG_WARNING, IB_LOG_INFO, IB_LOG_DEBUG).</li>
+                                    <li><code>level</code>: The log level to set (IB_LOG_ERROR, IB_LOG_WARN, IB_LOG_INFO, or IB_LOG_DEBUG)</li>
                                 </ul>
                             </div>
                             <div class="api-example">
                                 <h4>Example:</h4>
-                                <pre><code>ib_set_log_level(ws, IB_LOG_DEBUG);</code></pre>
+                                <pre><code>ib_set_log_level(IB_LOG_DEBUG); // Most verbose</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item api-function-item">
+                        <div class="faq-question">
+                            <h3>ib_set_verbose</h3>
+                            <p class="api-brief">Enables or disables verbose output.</p>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <pre class="function-signature"><code>void ib_set_verbose(bool verbose)</code></pre>
+                            <div class="api-params">
+                                <h4>Parameters:</h4>
+                                <ul>
+                                    <li><code>verbose</code>: Whether to enable verbose output (true) or not (false)</li>
+                                </ul>
+                            </div>
+                            <div class="api-example">
+                                <h4>Example:</h4>
+                                <pre><code>ib_set_verbose(true); // Enable detailed build information</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item api-function-item">
+                        <div class="faq-question">
+                            <h3>Log Levels</h3>
+                            <p class="api-brief">Enumeration of available log levels.</p>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <pre class="function-signature"><code>typedef enum {
+    IB_LOG_ERROR = 0,  // Only error messages 
+    IB_LOG_WARN = 1,   // Warnings and errors
+    IB_LOG_INFO = 2,   // Info, warnings, and errors (default)
+    IB_LOG_DEBUG = 3   // All messages including debug information
+} ib_log_level;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Library Building Section -->
+                <div id="library-building" class="faq-section api-section">
+                    <h2>Library Building</h2>
+                    
+                    <div class="faq-item api-function-item">
+                        <div class="faq-question">
+                            <h3>ib_build_library</h3>
+                            <p class="api-brief">Automatic "magic" function that builds a complete library project including static lib, shared lib, and tests.</p>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <pre class="function-signature"><code>bool ib_build_library(const char* library_name, int argc, char** argv)</code></pre>
+                            <div class="api-params">
+                                <h4>Parameters:</h4>
+                                <ul>
+                                    <li><code>library_name</code>: Base name of the library (e.g., "logger" creates "liblogger.a/so")</li>
+                                    <li><code>argc</code>: Number of command line arguments (from main)</li>
+                                    <li><code>argv</code>: Command line arguments (from main)</li>
+                                </ul>
+                            </div>
+                            <div class="api-returns">
+                                <h4>Returns:</h4>
+                                <p><code>true</code> if the build was successful, <code>false</code> otherwise.</p>
+                            </div>
+                            <div class="api-example">
+                                <h4>Example:</h4>
+                                <pre><code>int main(int argc, char** argv) {
+    ib_init();
+    
+    // Build the library with all its components
+    return ib_build_library("logger", argc, argv) ? 0 : 1;
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item api-function-item">
+                        <div class="faq-question">
+                            <h3>ib_build_static_library</h3>
+                            <p class="api-brief">Builds a static library (.a) from the specified source.</p>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <pre class="function-signature"><code>bool ib_build_static_library(const char* name, const char* main_source, const char* exclude_file)</code></pre>
+                            <div class="api-params">
+                                <h4>Parameters:</h4>
+                                <ul>
+                                    <li><code>name</code>: Name of the library (without "lib" prefix or ".a" extension)</li>
+                                    <li><code>main_source</code>: Path to the main source file</li>
+                                    <li><code>exclude_file</code>: File pattern to exclude (or NULL)</li>
+                                </ul>
+                            </div>
+                            <div class="api-returns">
+                                <h4>Returns:</h4>
+                                <p><code>true</code> if the build was successful, <code>false</code> otherwise.</p>
+                            </div>
+                            <div class="api-example">
+                                <h4>Example:</h4>
+                                <pre><code>ib_build_static_library("math", "src/math.c", "test_*.c");</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item api-function-item">
+                        <div class="faq-question">
+                            <h3>ib_build_dynamic_library</h3>
+                            <p class="api-brief">Builds a dynamic/shared library (.so/.dll) from the specified source.</p>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <pre class="function-signature"><code>bool ib_build_dynamic_library(const char* name, const char* main_source, const char* exclude_file)</code></pre>
+                            <div class="api-params">
+                                <h4>Parameters:</h4>
+                                <ul>
+                                    <li><code>name</code>: Name of the library (without "lib" prefix or extension)</li>
+                                    <li><code>main_source</code>: Path to the main source file</li>
+                                    <li><code>exclude_file</code>: File pattern to exclude (or NULL)</li>
+                                </ul>
+                            </div>
+                            <div class="api-returns">
+                                <h4>Returns:</h4>
+                                <p><code>true</code> if the build was successful, <code>false</code> otherwise.</p>
+                            </div>
+                            <div class="api-example">
+                                <h4>Example:</h4>
+                                <pre><code>ib_build_dynamic_library("math", "src/math.c", "test_*.c");</code></pre>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Error Handling -->
-                <div id="error-handling" class="faq-section api-section">
-                    <h2>Error Handling</h2>
+                <!-- Advanced Section -->
+                <div id="advanced" class="faq-section api-section">
+                    <h2>Advanced</h2>
                     
                     <div class="faq-item api-function-item">
                         <div class="faq-question">
-                            <h3>ib_get_last_error</h3>
-                            <p class="api-brief">Gets the last error message from the workspace.</p>
+                            <h3>ib_init_with_config</h3>
+                            <p class="api-brief">Initializes IncludeBuild with a custom configuration.</p>
                             <span class="faq-toggle"></span>
                         </div>
                         <div class="faq-answer">
-                            <pre class="function-signature"><code>const char* ib_get_last_error(ib_workspace_t workspace)</code></pre>
+                            <pre class="function-signature"><code>void ib_init_with_config(const ib_config* config)</code></pre>
                             <div class="api-params">
                                 <h4>Parameters:</h4>
                                 <ul>
-                                    <li><code>workspace</code>: The workspace instance.</li>
+                                    <li><code>config</code>: Pointer to a custom configuration structure</li>
                                 </ul>
-                            </div>
-                            <div class="api-returns">
-                                <h4>Returns:</h4>
-                                <p>A string containing the last error message, or NULL if no error has occurred.</p>
                             </div>
                             <div class="api-example">
                                 <h4>Example:</h4>
-                                <pre><code><span class="keyword">if</span> (!ib_build(ws)) {
-    printf(<span class="string">"Build failed: %s\n"</span>, ib_get_last_error(ws));
-}</code></pre>
+                                <pre><code>ib_config custom_config = {0};
+strcpy(custom_config.compiler, "clang");
+strcpy(custom_config.compiler_flags, "-Wall -O3");
+ib_init_with_config(&custom_config);</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item api-function-item">
+                        <div class="faq-question">
+                            <h3>ib_version</h3>
+                            <p class="api-brief">Gets the version string of IncludeBuild.</p>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <pre class="function-signature"><code>const char* ib_version(void)</code></pre>
+                            <div class="api-returns">
+                                <h4>Returns:</h4>
+                                <p>String with the version of IncludeBuild.</p>
+                            </div>
+                            <div class="api-example">
+                                <h4>Example:</h4>
+                                <pre><code>printf("Using IncludeBuild version: %s\n", ib_version());</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item api-function-item">
+                        <div class="faq-question">
+                            <h3>Customizable Limits</h3>
+                            <p class="api-brief">Constants that can be defined before including build.h to customize limits.</p>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <pre class="function-signature"><code>#define IB_MAX_PATH 1024      // Maximum path length
+#define IB_MAX_CMD 4096        // Maximum command length
+#define IB_MAX_FILES 1000      // Maximum number of files
+#define IB_MAX_DEPS 100        // Maximum dependencies per file
+#define IB_MAX_INCLUDE_DIRS 50 // Maximum include directories</code></pre>
+                            <div class="api-example">
+                                <h4>Example:</h4>
+                                <pre><code>// Define custom limits before including build.h
+#define IB_MAX_FILES 2000     // Support more files
+#define IB_MAX_DEPS 200       // Support more dependencies
+#define IB_MAX_INCLUDE_DIRS 100 // Support more include dirs
+
+#include "build.h"</code></pre>
                             </div>
                         </div>
                     </div>
@@ -479,7 +510,6 @@ ib_add_compiler_flag(ws, <span class="string">"-O2"</span>);</code></pre>
                 <div class="footer-column">
                     <h4>Community</h4>
                     <ul>
-                        <li><a href="https://github.com/korzewarrior/includebuild/discussions">Discussions</a></li>
                         <li><a href="https://github.com/korzewarrior/includebuild/blob/main/CONTRIBUTING.md">Contributing</a></li>
                         <li><a href="mailto:build@includebuild.com">build@includebuild.com</a></li>
                     </ul>
@@ -499,22 +529,13 @@ ib_add_compiler_flag(ws, <span class="string">"-O2"</span>);</code></pre>
             fetch('../includes/cta.html')
                 .then(response => response.text())
                 .then(html => {
-                    // Update relative paths for subdirectory
-                    html = html.replace(/href="(?!https?:\/\/)(?!#)([^"]+)"/g, function(match, p1) {
-                        if (p1.startsWith('../') || p1.startsWith('http')) {
-                            return match;
-                        }
-                        return 'href="../' + p1 + '"';
-                    });
                     ctaSection.innerHTML = html;
                 })
                 .catch(error => {
                     console.error('Error loading CTA section:', error);
                 });
-        });
-        
-        // Handle category tabs
-        document.addEventListener('DOMContentLoaded', function() {
+                
+            // Handle category tabs
             const categories = document.querySelectorAll('.faq-category');
             
             categories.forEach(category => {

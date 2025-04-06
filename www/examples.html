@@ -31,21 +31,30 @@
                 <!-- Basic Example -->
                 <div class="example-card">
                     <h3>Basic</h3>
-                    <p>A minimal "Hello, World!" program that demonstrates the simplest use of IncludeBuild. Perfect for beginners.</p>
+                    <p>A minimal example that demonstrates the simplest use of IncludeBuild. Just include build.h, call ib_init() and ib_build() - that's it!</p>
                     <div class="example-details">
                         <div class="example-tag">Beginner</div>
                         <div class="example-tag">Single File</div>
                     </div>
                     <div class="code-snippet">
-                        <pre><code><span class="keyword">#include</span> <span class="string">"build.h"</span>
+                        <pre><code><span class="comment">/**
+ * IncludeBuild Basic Example
+ */</span>
+<span class="keyword">#include</span> <span class="string">"../../build.h"</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
 
 <span class="type">int</span> <span class="function">main</span>() {
-    ib_workspace_t ws = ib_create_workspace();
-    ib_add_source_file(ws, <span class="string">"main.c"</span>);
-    ib_set_output(ws, <span class="string">"basic"</span>);
-    ib_build(ws);
-    ib_destroy_workspace(ws);
-    <span class="keyword">return</span> 0;
+    <span class="comment">// Initialize IncludeBuild</span>
+    ib_init();
+    
+    <span class="comment">// Enable verbose output</span>
+    ib_set_verbose(true);
+    
+    <span class="comment">// Build the project</span>
+    ib_build();
+    
+    printf(<span class="string">"\nBuild complete!\n"</span>);
+    return 0;
 }</code></pre>
                     </div>
                     <a href="https://github.com/korzewarrior/includebuild/tree/main/examples/basic" class="example-link">View Example</a>
@@ -54,27 +63,30 @@
                 <!-- Multi-File Example -->
                 <div class="example-card">
                     <h3>Multi-file</h3>
-                    <p>Demonstrates how IncludeBuild handles a project with multiple source files and shows automatic dependency resolution.</p>
+                    <p>Demonstrates how IncludeBuild automatically handles a project with multiple source files and resolves dependencies between them.</p>
                     <div class="example-details">
                         <div class="example-tag">Intermediate</div>
                         <div class="example-tag">Multiple Files</div>
                     </div>
                     <div class="code-snippet">
-                        <pre><code><span class="keyword">#include</span> <span class="string">"build.h"</span>
+                        <pre><code><span class="comment">/**
+ * IncludeBuild Multi-File Example
+ */</span>
+<span class="keyword">#include</span> <span class="string">"../../build.h"</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
 
 <span class="type">int</span> <span class="function">main</span>() {
-    ib_workspace_t ws = ib_create_workspace();
+    <span class="comment">// Initialize IncludeBuild</span>
+    ib_init();
     
-    <span class="comment">// Add all source files</span>
-    ib_add_source_file(ws, <span class="string">"main.c"</span>);
-    ib_add_source_file(ws, <span class="string">"math_utils.c"</span>);
-    ib_add_source_file(ws, <span class="string">"string_utils.c"</span>);
+    <span class="comment">// Enable verbose output</span>
+    ib_set_verbose(true);
     
-    <span class="comment">// Dependencies handled automatically</span>
-    ib_set_output(ws, <span class="string">"multi_file"</span>);
-    ib_build(ws);
-    ib_destroy_workspace(ws);
-    <span class="keyword">return</span> 0;
+    <span class="comment">// Build the project - build.h finds all source files automatically</span>
+    ib_build();
+    
+    printf(<span class="string">"\nBuild complete!\n"</span>);
+    return 0;
 }</code></pre>
                     </div>
                     <a href="https://github.com/korzewarrior/includebuild/tree/main/examples/multi_file" class="example-link">View Example</a>
@@ -83,99 +95,103 @@
                 <!-- Library Example -->
                 <div class="example-card">
                     <h3>Library</h3>
-                    <p>Shows how to create and use static and dynamic libraries with IncludeBuild in your C/C++ projects.</p>
+                    <p>Shows how to create a complete library with static and dynamic versions plus tests with just TWO LINES of code.</p>
                     <div class="example-details">
                         <div class="example-tag">Advanced</div>
                         <div class="example-tag">Libraries</div>
                     </div>
                     <div class="code-snippet">
-                        <pre><code><span class="keyword">#include</span> <span class="string">"build.h"</span>
+                        <pre><code><span class="comment">/**
+ * IncludeBuild Library Example - The Magic Solution
+ */</span>
+<span class="keyword">#include</span> <span class="string">"../../build.h"</span>
 
-<span class="type">int</span> <span class="function">main</span>() {
-    ib_workspace_t ws = ib_create_workspace();
+<span class="type">int</span> <span class="function">main</span>(int argc, char** argv) {
+    <span class="comment">// Initialize IncludeBuild</span>
+    ib_init();
     
-    <span class="comment">// Build a static library</span>
-    ib_add_source_file(ws, <span class="string">"src/logger.c"</span>);
-    ib_set_output_type(ws, IB_STATIC_LIB);
-    ib_set_output(ws, <span class="string">"liblogger.a"</span>);
-    ib_build(ws);
+    <span class="comment">// Enable verbose output</span>
+    ib_set_verbose(true);
     
-    <span class="comment">// Use the library in an executable</span>
-    ib_reset_workspace(ws);
-    ib_add_source_file(ws, <span class="string">"main.c"</span>);
-    ib_add_library(ws, <span class="string">"logger"</span>, <span class="string">"."</span>);
-    ib_set_output(ws, <span class="string">"library_example"</span>);
-    ib_build(ws);
-    
-    ib_destroy_workspace(ws);
-    <span class="keyword">return</span> 0;
+    <span class="comment">// Build the library - this handles everything: static, dynamic, tests</span>
+    return ib_build_library(<span class="string">"logger"</span>, argc, argv) ? 0 : 1;
 }</code></pre>
                     </div>
                     <a href="https://github.com/korzewarrior/includebuild/tree/main/examples/library" class="example-link">View Example</a>
                 </div>
 
-                <!-- Raylib Pong Example -->
+                <!-- Game Example -->
                 <div class="example-card">
-                    <h3>Raylib Pong</h3>
-                    <p>A complete Pong game built with Raylib, showing how IncludeBuild handles external libraries and game development.</p>
+                    <h3>Game</h3>
+                    <p>A complete Pong game using the Raylib external library, demonstrating IncludeBuild's ability to handle dependencies and cross-platform builds.</p>
                     <div class="example-details">
                         <div class="example-tag">Game</div>
                         <div class="example-tag">External Libraries</div>
                     </div>
                     <div class="code-snippet">
-                        <pre><code><span class="keyword">#include</span> <span class="string">"build.h"</span>
+                        <pre><code><span class="comment">/**
+ * IncludeBuild Game Example
+ */</span>
+<span class="keyword">#include</span> <span class="string">"../../build.h"</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
 
 <span class="type">int</span> <span class="function">main</span>() {
-    ib_workspace_t ws = ib_create_workspace();
+    <span class="comment">// Initialize IncludeBuild</span>
+    ib_init();
     
-    <span class="comment">// Add source files</span>
-    ib_add_source_file(ws, <span class="string">"raypong.c"</span>);
-    ib_add_source_file(ws, <span class="string">"main.c"</span>);
+    <span class="comment">// Enable verbose output</span>
+    ib_set_verbose(true);
     
-    <span class="comment">// Link with Raylib</span>
-    ib_add_system_library(ws, <span class="string">"raylib"</span>);
+    <span class="comment">// Add Raylib and its dependencies</span>
+    ib_add_libraries(<span class="string">"raylib"</span>, <span class="string">"GL"</span>, <span class="string">"m"</span>, <span class="string">"pthread"</span>, <span class="string">"dl"</span>, <span class="string">"rt"</span>, <span class="string">"X11"</span>, NULL);
     
-    <span class="comment">// Platform-specific settings</span>
-    <span class="keyword">#ifdef</span> _WIN32
-    ib_add_compiler_flag(ws, <span class="string">"-lopengl32"</span>);
-    ib_add_compiler_flag(ws, <span class="string">"-lgdi32"</span>);
-    <span class="keyword">#endif</span>
+    <span class="comment">// Build the project</span>
+    ib_build();
     
-    ib_set_output(ws, <span class="string">"pong"</span>);
-    ib_build(ws);
-    ib_destroy_workspace(ws);
-    <span class="keyword">return</span> 0;
+    printf(<span class="string">"\nBuild complete!\n"</span>);
+    return 0;
 }</code></pre>
                     </div>
-                    <a href="https://github.com/korzewarrior/includebuild/tree/main/examples/raylib-pong" class="example-link">View Example</a>
+                    <a href="https://github.com/korzewarrior/includebuild/tree/main/examples/game" class="example-link">View Example</a>
                 </div>
 
                 <!-- Logging Example -->
                 <div class="example-card">
                     <h3>Logging</h3>
-                    <p>Demonstrates the enhanced logging features of IncludeBuild, including different log levels and customization.</p>
+                    <p>Demonstrates IncludeBuild's logging features with different verbosity levels, allowing for detailed build information and debugging.</p>
                     <div class="example-details">
                         <div class="example-tag">Utility</div>
                         <div class="example-tag">Debug</div>
                     </div>
                     <div class="code-snippet">
-                        <pre><code><span class="keyword">#include</span> <span class="string">"build.h"</span>
+                        <pre><code><span class="comment">/**
+ * IncludeBuild Logging Example
+ */</span>
+<span class="keyword">#include</span> <span class="string">"../../build.h"</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+<span class="keyword">#include</span> <span class="string">&lt;string.h&gt;</span>
 
-<span class="type">int</span> <span class="function">main</span>() {
-    ib_workspace_t ws = ib_create_workspace();
+<span class="type">int</span> <span class="function">main</span>(int argc, char** argv) {
+    <span class="comment">// Initialize IncludeBuild</span>
+    ib_init();
     
-    <span class="comment">// Set log level to debug</span>
-    ib_set_log_level(ws, IB_LOG_DEBUG);
+    <span class="comment">// Enable verbose output</span>
+    ib_set_verbose(true);
     
-    <span class="comment">// Add source files</span>
-    ib_add_source_file(ws, <span class="string">"main.c"</span>);
-    ib_add_source_file(ws, <span class="string">"app.c"</span>);
+    <span class="comment">// Set a different log level if specified</span>
+    if (argc > 1) {
+        if (strcmp(argv[1], <span class="string">"debug"</span>) == 0)
+            ib_set_log_level(IB_LOG_DEBUG);      <span class="comment">// Most verbose</span>
+        else if (strcmp(argv[1], <span class="string">"warn"</span>) == 0)
+            ib_set_log_level(IB_LOG_WARN);       <span class="comment">// Warnings and errors</span>
+        else if (strcmp(argv[1], <span class="string">"error"</span>) == 0)
+            ib_set_log_level(IB_LOG_ERROR);      <span class="comment">// Errors only</span>
+    }
     
-    <span class="comment">// Full detailed output with debug info</span>
-    ib_set_output(ws, <span class="string">"logging_example"</span>);
-    ib_build(ws);
-    ib_destroy_workspace(ws);
-    <span class="keyword">return</span> 0;
+    <span class="comment">// Build the project</span>
+    ib_build();
+    
+    return 0;
 }</code></pre>
                     </div>
                     <a href="https://github.com/korzewarrior/includebuild/tree/main/examples/logging" class="example-link">View Example</a>
@@ -184,235 +200,41 @@
                 <!-- Custom Limits Example -->
                 <div class="example-card">
                     <h3>Custom Limits</h3>
-                    <p>Shows how to customize the build system limits to support larger projects while maintaining minimalism.</p>
+                    <p>Demonstrates how to customize IncludeBuild's internal limits for larger projects by defining constants before including build.h.</p>
                     <div class="example-details">
                         <div class="example-tag">Advanced</div>
                         <div class="example-tag">Customization</div>
                     </div>
                     <div class="code-snippet">
-                        <pre><code><span class="comment">// Define custom limits before including build.h</span>
-<span class="keyword">#define</span> IB_MAX_FILES 1000
-<span class="keyword">#define</span> IB_MAX_DEPENDENCIES 5000
-<span class="keyword">#define</span> IB_MAX_FLAGS 100
-<span class="keyword">#define</span> IB_MAX_INCLUDE_DIRS 50
+                        <pre><code><span class="comment">/**
+ * IncludeBuild Custom Limits Example
+ */</span>
 
-<span class="keyword">#include</span> <span class="string">"build.h"</span>
+<span class="comment">// Define custom limits before including build</span>
+<span class="keyword">#define</span> IB_MAX_FILES 2000      <span class="comment">// Default is 1000</span>
+<span class="keyword">#define</span> IB_MAX_DEPS 200        <span class="comment">// Default is 100</span>
+<span class="keyword">#define</span> IB_MAX_INCLUDE_DIRS 100 <span class="comment">// Default is 50</span>
+
+<span class="keyword">#include</span> <span class="string">"../../build.h"</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
 
 <span class="type">int</span> <span class="function">main</span>() {
-    ib_workspace_t ws = ib_create_workspace();
+    <span class="comment">// Initialize IncludeBuild</span>
+    ib_init();
+    ib_set_verbose(true);
     
-    <span class="comment">// Now you can handle much larger projects</span>
-    ib_add_source_file(ws, <span class="string">"main.c"</span>);
-    ib_add_source_file(ws, <span class="string">"app.c"</span>);
+    <span class="comment">// Print custom limits</span>
+    printf(<span class="string">"\nCustom limits in effect:\n"</span>);
+    printf(<span class="string">"  IB_MAX_FILES: %d\n"</span>, IB_MAX_FILES);
+    printf(<span class="string">"  IB_MAX_DEPS: %d\n"</span>, IB_MAX_DEPS);
     
-    ib_set_output(ws, <span class="string">"custom_limits"</span>);
-    ib_build(ws);
-    ib_destroy_workspace(ws);
-    <span class="keyword">return</span> 0;
+    <span class="comment">// Build the project</span>
+    ib_build();
+    
+    return 0;
 }</code></pre>
                     </div>
                     <a href="https://github.com/korzewarrior/includebuild/tree/main/examples/custom_limits" class="example-link">View Example</a>
-                </div>
-
-                <!-- Todo Application -->
-                <div class="example-card">
-                    <h3>Todo Application</h3>
-                    <p>A simple todo application built with IncludeBuild.</p>
-                    <div class="example-details">
-                        <div class="example-tag">Beginner</div>
-                        <div class="example-tag">Single File</div>
-                    </div>
-                    <div class="code-snippet">
-                        <pre><code><span class="keyword">#include</span> <span class="string">"build.h"</span>
-
-<span class="type">int</span> <span class="function">main</span>() {
-    ib_workspace_t ws = ib_create_workspace();
-    ib_add_source_file(ws, <span class="string">"main.c"</span>);
-    ib_set_output(ws, <span class="string">"todo_app"</span>);
-    ib_build(ws);
-    ib_destroy_workspace(ws);
-    <span class="keyword">return</span> 0;
-}</code></pre>
-                    </div>
-                    <div class="example-header">
-                        <h2>Todo Application</h2>
-                        <a href="https://github.com/korzewarrior/includebuild/tree/main/examples/todo" class="github-link" target="_blank">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                            </svg>
-                            View code
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Virtual DOM Implementation -->
-                <div class="example-card">
-                    <h3>Virtual DOM Implementation</h3>
-                    <p>A simple virtual DOM implementation using IncludeBuild.</p>
-                    <div class="example-details">
-                        <div class="example-tag">Beginner</div>
-                        <div class="example-tag">Single File</div>
-                    </div>
-                    <div class="code-snippet">
-                        <pre><code><span class="keyword">#include</span> <span class="string">"build.h"</span>
-
-<span class="type">int</span> <span class="function">main</span>() {
-    ib_workspace_t ws = ib_create_workspace();
-    ib_add_source_file(ws, <span class="string">"main.c"</span>);
-    ib_set_output(ws, <span class="string">"vdom_impl"</span>);
-    ib_build(ws);
-    ib_destroy_workspace(ws);
-    <span class="keyword">return</span> 0;
-}</code></pre>
-                    </div>
-                    <div class="example-header">
-                        <h2>Virtual DOM Implementation</h2>
-                        <a href="https://github.com/korzewarrior/includebuild/tree/main/examples/vdom" class="github-link" target="_blank">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                            </svg>
-                            View code
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Component Library -->
-                <div class="example-card">
-                    <h3>Component Library</h3>
-                    <p>A simple component library built with IncludeBuild.</p>
-                    <div class="example-details">
-                        <div class="example-tag">Beginner</div>
-                        <div class="example-tag">Single File</div>
-                    </div>
-                    <div class="code-snippet">
-                        <pre><code><span class="keyword">#include</span> <span class="string">"build.h"</span>
-
-<span class="type">int</span> <span class="function">main</span>() {
-    ib_workspace_t ws = ib_create_workspace();
-    ib_add_source_file(ws, <span class="string">"main.c"</span>);
-    ib_set_output(ws, <span class="string">"component_lib"</span>);
-    ib_build(ws);
-    ib_destroy_workspace(ws);
-    <span class="keyword">return</span> 0;
-}</code></pre>
-                    </div>
-                    <div class="example-header">
-                        <h2>Component Library</h2>
-                        <a href="https://github.com/korzewarrior/includebuild/tree/main/examples/components" class="github-link" target="_blank">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                            </svg>
-                            View code
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Real-time Chat -->
-                <div class="example-card">
-                    <h3>Real-time Chat</h3>
-                    <p>A simple real-time chat application built with IncludeBuild.</p>
-                    <div class="example-details">
-                        <div class="example-tag">Beginner</div>
-                        <div class="example-tag">Single File</div>
-                    </div>
-                    <div class="code-snippet">
-                        <pre><code><span class="keyword">#include</span> <span class="string">"build.h"</span>
-
-<span class="type">int</span> <span class="function">main</span>() {
-    ib_workspace_t ws = ib_create_workspace();
-    ib_add_source_file(ws, <span class="string">"main.c"</span>);
-    ib_set_output(ws, <span class="string">"chat_app"</span>);
-    ib_build(ws);
-    ib_destroy_workspace(ws);
-    <span class="keyword">return</span> 0;
-}</code></pre>
-                    </div>
-                    <div class="example-header">
-                        <h2>Real-time Chat</h2>
-                        <a href="https://github.com/korzewarrior/includebuild/tree/main/examples/chat" class="github-link" target="_blank">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                            </svg>
-                            View code
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Data Visualization -->
-                <div class="example-card">
-                    <h3>Data Visualization</h3>
-                    <p>A simple data visualization application built with IncludeBuild.</p>
-                    <div class="example-details">
-                        <div class="example-tag">Beginner</div>
-                        <div class="example-tag">Single File</div>
-                    </div>
-                    <div class="code-snippet">
-                        <pre><code><span class="keyword">#include</span> <span class="string">"build.h"</span>
-
-<span class="type">int</span> <span class="function">main</span>() {
-    ib_workspace_t ws = ib_create_workspace();
-    ib_add_source_file(ws, <span class="string">"main.c"</span>);
-    ib_set_output(ws, <span class="string">"data_viz"</span>);
-    ib_build(ws);
-    ib_destroy_workspace(ws);
-    <span class="keyword">return</span> 0;
-}</code></pre>
-                    </div>
-                    <div class="example-header">
-                        <h2>Data Visualization</h2>
-                        <a href="https://github.com/korzewarrior/includebuild/tree/main/examples/dataviz" class="github-link" target="_blank">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                            </svg>
-                            View code
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="how-to-run" class="dark-section">
-        <div class="container">
-            <h2>How to Run These Examples</h2>
-            <div class="code-example">
-                <div class="code-tabs">
-                    <button class="code-tab active" data-tab="clone">Clone Repository</button>
-                    <button class="code-tab" data-tab="navigate">Navigate to Example</button>
-                    <button class="code-tab" data-tab="build">Build and Run</button>
-                </div>
-                <div class="code-content">
-                    <div class="code-pane active" id="clone">
-                        <pre><code><span class="comment"># Clone the IncludeBuild repository</span>
-<span class="command">git clone</span> https://github.com/korzewarrior/includebuild.git
-<span class="command">cd</span> includebuild</code></pre>
-                    </div>
-                    <div class="code-pane" id="navigate">
-                        <pre><code><span class="comment"># Choose an example to try</span>
-<span class="command">cd</span> examples/basic
-
-<span class="comment"># Or any other example</span>
-<span class="command">cd</span> examples/multi_file
-<span class="command">cd</span> examples/library
-<span class="command">cd</span> examples/raylib-pong
-<span class="command">cd</span> examples/logging
-<span class="command">cd</span> examples/custom_limits
-<span class="command">cd</span> examples/todo
-<span class="command">cd</span> examples/vdom
-<span class="command">cd</span> examples/component_lib
-<span class="command">cd</span> examples/chat
-<span class="command">cd</span> examples/data_viz</code></pre>
-                    </div>
-                    <div class="code-pane" id="build">
-                        <pre><code><span class="comment"># Compile the build script</span>
-<span class="command">gcc</span> -o build build.c
-
-<span class="comment"># Run the build</span>
-<span class="command">./build</span>
-
-<span class="comment"># Run the resulting program</span>
-<span class="command">./basic</span>  <span class="comment"># or the name of the executable</span></code></pre>
-                    </div>
                 </div>
             </div>
         </div>
@@ -420,26 +242,16 @@
 
     <section id="modify-examples">
         <div class="container">
-            <h2>Modify and Experiment</h2>
-            <p>These examples are meant to be modified and experimented with. Here are some suggestions:</p>
-            
-            <div class="suggestions-grid">
-                <div class="suggestion-card">
-                    <h3>Add More Source Files</h3>
-                    <p>Try adding more source files to see how IncludeBuild handles dependency management automatically.</p>
-                </div>
-                <div class="suggestion-card">
-                    <h3>Change Compiler Flags</h3>
-                    <p>Experiment with different compiler flags to see how they affect the build process and output.</p>
-                </div>
-                <div class="suggestion-card">
-                    <h3>Cross-Platform Support</h3>
-                    <p>Add platform-specific code to make your builds work correctly across different operating systems.</p>
-                </div>
-                <div class="suggestion-card">
-                    <h3>Create Your Own Example</h3>
-                    <p>Once you're comfortable, try creating your own example project with IncludeBuild!</p>
-                </div>
+            <h2>Create Your Own Examples</h2>
+            <p>These examples are just the beginning. IncludeBuild is flexible enough to handle many different use cases. We encourage you to experiment with these examples and create your own!</p>
+            <p>If you develop an interesting example, consider contributing it back to the project.</p>
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="https://github.com/korzewarrior/includebuild/blob/main/CONTRIBUTING.md" class="github-cta" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    </svg>
+                    Contribute to IncludeBuild
+                </a>
             </div>
         </div>
     </section>
@@ -469,13 +281,12 @@
                     <ul>
                         <li><a href="index.html#get-started">Quick Start</a></li>
                         <li><a href="index.html#docs">Documentation</a></li>
-                        <li><a href="index.html#docs">User Guide</a></li>
+                        <li><a href="docs/guide.html">User Guide</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h4>Community</h4>
                     <ul>
-                        <li><a href="https://github.com/korzewarrior/includebuild/discussions">Discussions</a></li>
                         <li><a href="https://github.com/korzewarrior/includebuild/blob/main/CONTRIBUTING.md">Contributing</a></li>
                         <li><a href="mailto:build@includebuild.com">build@includebuild.com</a></li>
                     </ul>
@@ -489,7 +300,6 @@
 
     <script src="js/main.js"></script>
     <script>
-        // Load the CTA section
         document.addEventListener('DOMContentLoaded', function() {
             const ctaSection = document.querySelector('.cta-section');
             fetch('includes/cta.html')

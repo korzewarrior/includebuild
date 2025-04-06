@@ -22,7 +22,7 @@
                 <div class="hero-content">
                     <h1>The only build system that feels like part of the language</h1>
                     <div class="code-block">
-                        <pre><code><span class="keyword">#include</span> <span class="string">"build.h"</span>  <span class="comment">// That's it. You're ready.</span></code></pre>
+                        <pre><code><span class="keyword">#include</span> <span class="string">"build.h"</span>  <span class="comment">// That's it.</span></code></pre>
                     </div>
                     <p class="tagline">No build tools, just code.</p>
                     <div class="cta-buttons">
@@ -135,33 +135,30 @@
                 <div class="code-content">
                     <div class="code-pane active" id="install">
                         <pre><code><span class="comment"># Option 1: Copy directly to your project</span>
-<span class="command">cp</span> includebuild/src/build.h your_project/
+<span class="command">cp</span> includebuild/build.h your_project/
 
-<span class="comment"># Option 2: System-wide installation</span>
-<span class="command">git clone</span> https://github.com/includebuild/includebuild.git
-<span class="command">cd</span> includebuild
-<span class="command">make install</span></code></pre>
+<span class="comment"># Option 2: Copy to system include directory</span>
+<span class="command">git clone</span> https://github.com/korzewarrior/includebuild.git
+<span class="command">sudo mkdir</span> -p /usr/local/include/includebuild
+<span class="command">sudo cp</span> includebuild/build.h /usr/local/include/includebuild/</code></pre>
                     </div>
                     <div class="code-pane" id="build-script">
                         <pre><code><span class="comment">// build.c</span>
 <span class="keyword">#include</span> <span class="string">"build.h"</span>
 
 <span class="type">int</span> <span class="function">main</span>() {
-    <span class="comment">// Initialize the build system</span>
-    ib_workspace_t ws = ib_create_workspace();
+    <span class="comment">// Initialize IncludeBuild</span>
+    ib_init();
     
-    <span class="comment">// Add source files</span>
-    ib_add_source_file(ws, <span class="string">"main.c"</span>);
-    ib_add_source_file(ws, <span class="string">"helper.c"</span>);
+    <span class="comment">// Enable verbose output</span>
+    ib_set_verbose(true);
     
-    <span class="comment">// Set output executable name</span>
-    ib_set_output(ws, <span class="string">"my_program"</span>);
+    <span class="comment">// (Optional) Add a specific target</span>
+    ib_add_target(<span class="string">"my_program"</span>, <span class="string">"main.c"</span>);
     
     <span class="comment">// Run the build</span>
-    ib_build(ws);
+    ib_build();
     
-    <span class="comment">// Clean up</span>
-    ib_destroy_workspace(ws);
     <span class="keyword">return</span> 0;
 }</code></pre>
                     </div>
@@ -200,9 +197,9 @@
                     <a href="examples.html#library" class="example-link">View Example</a>
                 </div>
                 <div class="example-card">
-                    <h3>Raylib Pong</h3>
+                    <h3>Game</h3>
                     <p>A complete game using external libraries.</p>
-                    <a href="examples.html#raylib-pong" class="example-link">View Example</a>
+                    <a href="examples.html#game" class="example-link">View Example</a>
                 </div>
             </div>
             <div class="text-center" style="margin-top: 2rem;">
@@ -220,7 +217,7 @@
                         <tr>
                             <th>Feature</th>
                             <th>IncludeBuild</th>
-                            <th>Make</th>
+                            <th>Makefiles</th>
                             <th>CMake</th>
                         </tr>
                     </thead>
@@ -228,7 +225,7 @@
                         <tr>
                             <td>Self-contained</td>
                             <td><span class="good" aria-label="Good"><span class="indicator">✓</span> Single header</span></td>
-                            <td><span class="bad" aria-label="Bad"><span class="indicator">×</span> Requires Make</span></td>
+                            <td><span class="bad" aria-label="Bad"><span class="indicator">×</span> Requires external tool</span></td>
                             <td><span class="bad" aria-label="Bad"><span class="indicator">×</span> Requires CMake</span></td>
                         </tr>
                         <tr>
@@ -260,7 +257,7 @@
             </div>
             <div class="comparison-quote">
                 <blockquote>
-                    Make has Makefiles. CMake has CMakeLists.txt. IncludeBuild has... nothing. Just code.
+                    Makefiles have Makefile syntax. CMake has CMakeLists.txt. IncludeBuild has... nothing. Just code.
                 </blockquote>
             </div>
         </div>
@@ -315,20 +312,19 @@
                     <ul>
                         <li><a href="index.html#get-started">Quick Start</a></li>
                         <li><a href="index.html#docs">Documentation</a></li>
-                        <li><a href="index.html#docs">User Guide</a></li>
+                        <li><a href="docs/guide.html">User Guide</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h4>Community</h4>
                     <ul>
-                        <li><a href="https://github.com/korzewarrior/includebuild/discussions">Discussions</a></li>                    
                         <li><a href="https://github.com/korzewarrior/includebuild/blob/main/CONTRIBUTING.md">Contributing</a></li>
                         <li><a href="mailto:build@includebuild.com">build@includebuild.com</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 IncludeBuild. All rights reserved.</p>
+                <p>&copy; 2025 IncludeBuild. All rights reserved. v0406.002</p>
             </div>
         </div>
     </footer>
