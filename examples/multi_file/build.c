@@ -1,24 +1,23 @@
-#include "../../src/build.h"
+/**
+ * IncludeBuild Multi-File Example
+ * 
+ * This demonstrates how easy it is to build projects with multiple source files.
+ * IncludeBuild automatically handles dependencies between files.
+ */
+
+#include "../../build.h"
+#include <stdio.h>
 
 int main() {
-    // Initialize IncludeBuild with default settings
+    // Initialize IncludeBuild
     ib_init();
     
-    // Set the name of the executable to 'multi_file'
-    ib_add_target("multi_file", "");
-    
     // Enable verbose output to see what's happening
-    g_config.verbose = true;
+    ib_set_verbose(true);
     
-    // Set compiler flags
-    strcpy(g_config.compiler_flags, "-Wall -Wextra -std=c99");
-    
-    // Build the project
+    // Build the project - build.h will find all source files automatically
     ib_build();
     
-    printf("\nBuild complete. Run './build/multi_file' to execute the program.\n");
-    printf("This example demonstrates how IncludeBuild handles multiple source files and dependencies.\n");
-    printf("Try modifying one of the source files and rebuild - only the changed file will be recompiled!\n");
-    
+    printf("\nBuild complete! Run './main' to execute the program.\n");
     return 0;
 } 

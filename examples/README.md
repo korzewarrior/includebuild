@@ -58,9 +58,9 @@ gcc -o build build.c
 - Creating dynamic libraries
 - Using libraries in executables
 
-### 4. Raylib Pong Example
+### 4. Game Example
 
-**Location:** [`raylib_pong/`](raylib_pong/)
+**Location:** [`game/`](game/)
 
 A more complex example showing how to build a simple Pong game using the Raylib library. This demonstrates how IncludeBuild can handle external dependencies.
 
@@ -71,7 +71,7 @@ A more complex example showing how to build a simple Pong game using the Raylib 
 
 **To build:**
 ```bash
-cd raylib_pong
+cd game
 gcc -o build build.c
 ./build
 ```

@@ -2,6 +2,11 @@
 
 This example demonstrates how to customize the size limits in IncludeBuild to accommodate larger projects.
 
+## Files in this example
+
+- `main.c`: A simple application that demonstrates the custom limits example
+- `build.c`: A minimal build script showing how to set custom limits
+
 ## Building and Running
 
 Compile the build script:
@@ -16,6 +21,8 @@ Run the build script:
 ./build
 ```
 
+IncludeBuild will handle the rest automatically, finding and compiling the appropriate source files.
+
 ## How It Works
 
 By defining the limits before including `build.h`, you can override the defaults:
@@ -29,7 +36,7 @@ By defining the limits before including `build.h`, you can override the defaults
 #include "build.h"
 ```
 
-This allows IncludeBuild to maintain its minimal and self-contained design while still being configurable for projects of different sizes.
+That's it! IncludeBuild does all the work after that. This approach allows IncludeBuild to maintain its minimal and self-contained design while still being configurable for projects of different sizes.
 
 ## Available Limit Constants
 

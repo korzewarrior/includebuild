@@ -1,16 +1,28 @@
-#include "../include/logger.h"
+/**
+ * Logger - Implementation
+ * 
+ * This file implements the logger library functions.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <time.h>
 #include <string.h>
+#include "../include/logger.h"
 
-// Static variables
-static LogLevel current_min_level = LOG_INFO;
-static FILE* log_file = NULL;
-static int use_stdout = 1;
+// Global logger state
+static struct {
+    LogLevel min_level;
+    FILE* output;
+    bool is_file_output;
+} g_logger = {
+    .min_level = LOG_INFO,
+    .output = NULL,
+    .is_file_output = false
+};
 
-// Names for log levels
+// Level name strings
 static const char* level_names[] = {
     "DEBUG",
     "INFO",
@@ -19,160 +31,134 @@ static const char* level_names[] = {
     "FATAL"
 };
 
-// Color codes for different log levels (ANSI escape sequences)
-static const char* level_colors[] = {
-    "\x1b[36m", // Cyan for DEBUG
-    "\x1b[32m", // Green for INFO
-    "\x1b[33m", // Yellow for WARNING
-    "\x1b[31m", // Red for ERROR
-    "\x1b[35m"  // Magenta for FATAL
-};
-
-// Reset color code
-static const char* color_reset = "\x1b[0m";
-
+/**
+ * Initialize the logger
+ */
 void logger_init(LogLevel min_level) {
-    current_min_level = min_level;
-    use_stdout = 1;
-    log_file = NULL;
+    g_logger.min_level = min_level;
+    
+    // Default to stdout if not already set
+    if (g_logger.output == NULL) {
+        g_logger.output = stdout;
+        g_logger.is_file_output = false;
+    }
 }
 
-int logger_set_output_file(const char* filename) {
-    // If we already have a file open, close it
-    if (log_file != NULL && !use_stdout) {
-        fclose(log_file);
-        log_file = NULL;
+/**
+ * Set output to a file
+ */
+bool logger_set_output_file(const char* filename) {
+    // Close existing file if open
+    if (g_logger.is_file_output && g_logger.output != NULL) {
+        fclose(g_logger.output);
+        g_logger.output = NULL;
+        g_logger.is_file_output = false;
     }
     
-    // If filename is NULL, use stdout
+    // If NULL, use stdout
     if (filename == NULL) {
-        use_stdout = 1;
-        return 1;
+        g_logger.output = stdout;
+        g_logger.is_file_output = false;
+        return true;
     }
     
-    // Open the log file
-    log_file = fopen(filename, "a");
-    if (log_file == NULL) {
-        perror("Failed to open log file");
-        use_stdout = 1;
-        return 0;
+    // Open the file
+    g_logger.output = fopen(filename, "a");
+    if (g_logger.output == NULL) {
+        g_logger.output = stdout; // Fallback to stdout
+        return false;
     }
     
-    use_stdout = 0;
-    return 1;
+    g_logger.is_file_output = true;
+    return true;
 }
 
-void logger_log(LogLevel level, const char* format, ...) {
-    // Check if the level is sufficient to log
-    if (level < current_min_level) {
+/**
+ * Clean up logger resources
+ */
+void logger_cleanup(void) {
+    if (g_logger.is_file_output && g_logger.output != NULL) {
+        fclose(g_logger.output);
+        g_logger.output = NULL;
+    }
+}
+
+/**
+ * Internal log function
+ */
+static void log_message(LogLevel level, const char* format, va_list args) {
+    // Check if we should log this message
+    if (level < g_logger.min_level) {
         return;
+    }
+    
+    // Ensure we have an output
+    if (g_logger.output == NULL) {
+        g_logger.output = stdout;
+        g_logger.is_file_output = false;
     }
     
     // Get current time
     time_t now = time(NULL);
-    struct tm* time_info = localtime(&now);
-    char time_str[20];
-    strftime(time_str, sizeof(time_str), "%Y-%m-%d %H:%M:%S", time_info);
+    struct tm* tm_now = localtime(&now);
+    char timestamp[32];
+    strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", tm_now);
     
-    // Format the log message
-    FILE* output = use_stdout ? stdout : log_file;
+    // Print the message with timestamp and level
+    fprintf(g_logger.output, "[%s][%s] ", timestamp, level_names[level]);
+    vfprintf(g_logger.output, format, args);
+    fprintf(g_logger.output, "\n");
     
-    // Add colors if using stdout
-    if (use_stdout) {
-        fprintf(output, "%s[%s][%s]%s ", level_colors[level], time_str, level_names[level], color_reset);
-    } else {
-        fprintf(output, "[%s][%s] ", time_str, level_names[level]);
-    }
-    
-    // Print the message with variable arguments
-    va_list args;
-    va_start(args, format);
-    vfprintf(output, format, args);
-    va_end(args);
-    
-    // Add a newline if not already present
-    if (format[0] == '\0' || format[strlen(format) - 1] != '\n') {
-        fprintf(output, "\n");
-    }
-    
-    // Flush to ensure message is written
-    fflush(output);
+    // Flush to ensure message is written immediately
+    fflush(g_logger.output);
 }
 
-// Convenience functions
+/**
+ * Log a debug message
+ */
 void logger_debug(const char* format, ...) {
-    if (LOG_DEBUG < current_min_level) {
-        return;
-    }
-    
     va_list args;
     va_start(args, format);
-    char buffer[1024];
-    vsnprintf(buffer, sizeof(buffer), format, args);
+    log_message(LOG_DEBUG, format, args);
     va_end(args);
-    
-    logger_log(LOG_DEBUG, "%s", buffer);
 }
 
+/**
+ * Log an informational message
+ */
 void logger_info(const char* format, ...) {
-    if (LOG_INFO < current_min_level) {
-        return;
-    }
-    
     va_list args;
     va_start(args, format);
-    char buffer[1024];
-    vsnprintf(buffer, sizeof(buffer), format, args);
+    log_message(LOG_INFO, format, args);
     va_end(args);
-    
-    logger_log(LOG_INFO, "%s", buffer);
 }
 
+/**
+ * Log a warning message
+ */
 void logger_warning(const char* format, ...) {
-    if (LOG_WARNING < current_min_level) {
-        return;
-    }
-    
     va_list args;
     va_start(args, format);
-    char buffer[1024];
-    vsnprintf(buffer, sizeof(buffer), format, args);
+    log_message(LOG_WARNING, format, args);
     va_end(args);
-    
-    logger_log(LOG_WARNING, "%s", buffer);
 }
 
+/**
+ * Log an error message
+ */
 void logger_error(const char* format, ...) {
-    if (LOG_ERROR < current_min_level) {
-        return;
-    }
-    
     va_list args;
     va_start(args, format);
-    char buffer[1024];
-    vsnprintf(buffer, sizeof(buffer), format, args);
+    log_message(LOG_ERROR, format, args);
     va_end(args);
-    
-    logger_log(LOG_ERROR, "%s", buffer);
 }
 
+/**
+ * Log a fatal error message
+ */
 void logger_fatal(const char* format, ...) {
-    if (LOG_FATAL < current_min_level) {
-        return;
-    }
-    
     va_list args;
     va_start(args, format);
-    char buffer[1024];
-    vsnprintf(buffer, sizeof(buffer), format, args);
+    log_message(LOG_FATAL, format, args);
     va_end(args);
-    
-    logger_log(LOG_FATAL, "%s", buffer);
-}
-
-void logger_cleanup(void) {
-    if (log_file != NULL && !use_stdout) {
-        fclose(log_file);
-        log_file = NULL;
-    }
 } 

@@ -24,8 +24,9 @@ This will compile `main.c` and create an executable called "basic".
 ## How it works
 
 The build script:
-1. Initializes IncludeBuild
-2. Adds the main.c file as a target
-3. Runs the build
+1. Initializes IncludeBuild with `ib_init()`
+2. Adds a target using `ib_add_target("basic", "main.c")`
+3. Enables verbose output for detailed build information
+4. Runs the build with `ib_build()`
 
-This simple example demonstrates IncludeBuild's minimal API and how easy it is to set up a build script without any complex configuration files. 
+This simple example demonstrates IncludeBuild's minimal API and how easy it is to set up a build script without any complex configuration files. The latest version of IncludeBuild automatically finds dependencies, rebuilds only when necessary, and intelligently excludes build script files (like build.c) from the compilation process. 

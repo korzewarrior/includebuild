@@ -1,15 +1,24 @@
+/**
+ * Logger - A simple logging library
+ * 
+ * This is a minimalist logging library that supports different
+ * log levels, file output, and formatted messages.
+ */
+
 #ifndef LOGGER_H
 #define LOGGER_H
+
+#include <stdbool.h>
 
 /**
  * Log levels for controlling message verbosity
  */
 typedef enum {
-    LOG_DEBUG,   // Detailed debugging information
-    LOG_INFO,    // General information messages
-    LOG_WARNING, // Warning messages
-    LOG_ERROR,   // Error messages
-    LOG_FATAL    // Critical errors
+    LOG_DEBUG = 0,
+    LOG_INFO = 1,
+    LOG_WARNING = 2,
+    LOG_ERROR = 3,
+    LOG_FATAL = 4
 } LogLevel;
 
 /**
@@ -23,9 +32,9 @@ void logger_init(LogLevel min_level);
  * Set the output file for logs
  * By default, logs go to stdout
  * @param filename The file to write logs to, or NULL for stdout
- * @return 1 on success, 0 on failure
+ * @return true if successful
  */
-int logger_set_output_file(const char* filename);
+bool logger_set_output_file(const char* filename);
 
 /**
  * Log a message with a specific log level

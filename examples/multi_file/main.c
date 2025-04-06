@@ -1,24 +1,38 @@
-#include "../../src/build.h"
+/**
+ * IncludeBuild Multi-File Example - Main Program
+ * 
+ * This program demonstrates how to use multiple source files
+ * with IncludeBuild by utilizing the math and string utilities.
+ */
+
+#include <stdio.h>
+#include "math_utils.h"
+#include "string_utils.h"
 
 int main() {
-    // Initialize IncludeBuild with default settings
-    ib_init();
+    printf("========== IncludeBuild Multi-File Demo ==========\n\n");
     
-    // Set the name of the executable to 'multi_file'
-    ib_add_target("multi_file", "");
+    // Use the math utilities
+    printf("Math Utilities:\n");
+    printf("  Square of 5: %d\n", square(5));
+    printf("  Cube of 3: %d\n", cube(3));
+    printf("  Sum of 10 and 20: %d\n", add(10, 20));
+    printf("  Max of 42 and 7: %d\n\n", max(42, 7));
     
-    // Enable verbose output to see what's happening
-    g_config.verbose = true;
+    // Use the string utilities
+    printf("String Utilities:\n");
+    char text[100] = "Hello, IncludeBuild!";
+    printf("  Original: \"%s\"\n", text);
     
-    // Set compiler flags
-    strcpy(g_config.compiler_flags, "-Wall -Wextra -std=c99");
+    to_upper(text);
+    printf("  To upper: \"%s\"\n", text);
     
-    // Build the project
-    ib_build();
+    to_lower(text);
+    printf("  To lower: \"%s\"\n", text);
     
-    printf("\nBuild complete. Run './build/multi_file' to execute the program.\n");
-    printf("This example demonstrates how IncludeBuild handles multiple source files and dependencies.\n");
-    printf("Try modifying one of the source files and rebuild - only the changed file will be recompiled!\n");
+    printf("  Length: %d characters\n", string_length(text));
+    
+    printf("\n=================================================\n");
     
     return 0;
 } 

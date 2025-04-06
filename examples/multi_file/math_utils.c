@@ -18,4 +18,16 @@ float divide(int a, int b) {
         return 0.0f;
     }
     return (float)a / (float)b;
+}
+
+int square(int n) {
+    return n * n;
+}
+
+int cube(int n) {
+    return n * n * n;
+}
+
+int max(int a, int b) {
+    return (a > b) ? a : b;
 } 

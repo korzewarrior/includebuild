@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Guide | IncludeBuild</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
+    <script src="../js/nav.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <!-- Navigation will be loaded here by JavaScript -->
+        </nav>
+    </header>
+
+    <section class="examples-hero">
+        <div class="container">
+            <h1>User Guide</h1>
+            <p class="tagline">Learn how to use IncludeBuild effectively in your C/C++ projects</p>
+        </div>
+    </section>
+
+    <section id="guide-content">
+        <div class="container">
+            <div class="faq-categories guide-categories">
+                <a href="#installation" class="faq-category active" data-section="installation">Installation</a>
+                <a href="#getting-started" class="faq-category" data-section="getting-started">Getting Started</a>
+                <a href="#build-script" class="faq-category" data-section="build-script">Build Script</a>
+                <a href="#source-files" class="faq-category" data-section="source-files">Source Files</a>
+                <a href="#libraries" class="faq-category" data-section="libraries">Libraries</a>
+                <a href="#compilation" class="faq-category" data-section="compilation">Compilation</a>
+                <a href="#customization" class="faq-category" data-section="customization">Advanced</a>
+                <a href="#troubleshooting" class="faq-category" data-section="troubleshooting">Troubleshooting</a>
+            </div>
+
+            <div class="faq-container guide-container">
+                <!-- Installation Section -->
+                <div id="installation" class="faq-section guide-section active">
+                    <h2>Installation</h2>
+                    <p>IncludeBuild is designed to be extremely simple to install. As a header-only library, you only need a single file to get started.</p>
+                    
+                    <div class="faq-item guide-item">
+                        <div class="faq-question">
+                            <h3>Option 1: Copy to Your Project</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>The simplest way to use IncludeBuild is to copy the <code>build.h</code> file directly into your project:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="command">cp</span> path/to/includebuild/src/build.h your_project/</code></pre>
+                            </div>
+                            <p>This allows you to include the file directly in your build script:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="keyword">#include</span> <span class="string">"build.h"</span></code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item guide-item">
+                        <div class="faq-question">
+                            <h3>Option 2: System-wide Installation</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>For more convenient use across multiple projects, you can install IncludeBuild system-wide:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="command">git clone</span> https://github.com/korzewarrior/includebuild.git
+<span class="command">cd</span> includebuild
+<span class="command">make install</span></code></pre>
+                            </div>
+                            <p>This will install the header to your system's include path, allowing you to include it as:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="keyword">#include</span> <span class="string">&lt;includebuild/build.h&gt;</span></code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Getting Started Section -->
+                <div id="getting-started" class="faq-section guide-section">
+                    <h2>Getting Started</h2>
+                    <p>Let's start with a simple "Hello, World!" project using IncludeBuild.</p>
+                    
+                    <div class="faq-item guide-item">
+                        <div class="faq-question">
+                            <h3>Project Structure</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Create a basic project structure:</p>
+                            <div class="code-snippet">
+                                <pre><code>hello_world/
+├── build.c      # Build script
+├── build.h      # IncludeBuild header
+└── main.c       # Source code</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item guide-item">
+                        <div class="faq-question">
+                            <h3>Source Code (main.c)</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Create a simple C program:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="type">int</span> <span class="function">main</span>() {
+    printf(<span class="string">"Hello, World from IncludeBuild!\n"</span>);
+    <span class="keyword">return</span> 0;
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item guide-item">
+                        <div class="faq-question">
+                            <h3>Build Script (build.c)</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Create a build script using IncludeBuild:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="keyword">#include</span> <span class="string">"build.h"</span>
+
+<span class="type">int</span> <span class="function">main</span>() {
+    <span class="comment">// Create a workspace</span>
+    ib_workspace_t ws = ib_create_workspace();
+    
+    <span class="comment">// Add source file</span>
+    ib_add_source_file(ws, <span class="string">"main.c"</span>);
+    
+    <span class="comment">// Set output name</span>
+    ib_set_output(ws, <span class="string">"hello_world"</span>);
+    
+    <span class="comment">// Build the project</span>
+    ib_build(ws);
+    
+    <span class="comment">// Clean up</span>
+    ib_destroy_workspace(ws);
+    
+    <span class="keyword">return</span> 0;
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item guide-item">
+                        <div class="faq-question">
+                            <h3>Building and Running</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Compile and run your build script:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="command">gcc</span> -o build build.c
+<span class="command">./build</span></code></pre>
+                            </div>
+                            <p>This will compile your project and create the <code>hello_world</code> executable. Now run it:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="command">./hello_world</span>
+Hello, World from IncludeBuild!</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Build Script Section -->
+                <div id="build-script" class="faq-section guide-section">
+                    <h2>Creating a Build Script</h2>
+                    <p>Build scripts are regular C programs that use the IncludeBuild API. This section covers the essential components of a build script.</p>
+                    
+                    <div class="faq-item guide-item">
+                        <div class="faq-question">
+                            <h3>Basic Structure</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Every build script follows this basic structure:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="keyword">#include</span> <span class="string">"build.h"</span>
+
+<span class="type">int</span> <span class="function">main</span>() {
+    <span class="comment">// 1. Create workspace</span>
+    ib_workspace_t ws = ib_create_workspace();
+    
+    <span class="comment">// 2. Configure your build</span>
+    <span class="comment">// Add source files, libraries, flags, etc.</span>
+    
+    <span class="comment">// 3. Perform the build</span>
+    ib_build(ws);
+    
+    <span class="comment">// 4. Clean up</span>
+    ib_destroy_workspace(ws);
+    
+    <span class="keyword">return</span> 0;
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item guide-item">
+                        <div class="faq-question">
+                            <h3>Error Handling</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>It's good practice to check for errors during the build process:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="keyword">if</span> (!ib_build(ws)) {
+    printf(<span class="string">"Build failed: %s\n"</span>, ib_get_last_error(ws));
+    ib_destroy_workspace(ws);
+    <span class="keyword">return</span> 1;
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item guide-item">
+                        <div class="faq-question">
+                            <h3>Using Command Line Arguments</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>You can make your build script flexible by using command line arguments:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="type">int</span> <span class="function">main</span>(<span class="type">int</span> argc, <span class="type">char</span>* argv[]) {
+    ib_workspace_t ws = ib_create_workspace();
+    
+    <span class="comment">// Check for command line arguments</span>
+    <span class="keyword">if</span> (argc > 1 && strcmp(argv[1], <span class="string">"clean"</span>) == 0) {
+        <span class="comment">// Clean build artifacts</span>
+        ib_clean(ws);
+    } <span class="keyword">else</span> {
+        <span class="comment">// Normal build process</span>
+        ib_add_source_file(ws, <span class="string">"main.c"</span>);
+        ib_set_output(ws, <span class="string">"hello_world"</span>);
+        ib_build(ws);
+    }
+    
+    ib_destroy_workspace(ws);
+    <span class="keyword">return</span> 0;
+}</code></pre>
+                            </div>
+                            <p>This allows you to run <code>./build clean</code> to clean build artifacts.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Source Files Section -->
+                <div id="source-files" class="faq-section guide-section">
+                    <h2>Managing Source Files</h2>
+                    <p>IncludeBuild provides several ways to specify which source files to compile.</p>
+                    
+                    <div class="faq-item guide-item">
+                        <div class="faq-question">
+                            <h3>Adding Individual Files</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Add individual source files to your workspace:</p>
+                            <div class="code-snippet">
+                                <pre><code>ib_add_source_file(ws, <span class="string">"main.c"</span>);
+ib_add_source_file(ws, <span class="string">"utils.c"</span>);
+ib_add_source_file(ws, <span class="string">"math_helpers.c"</span>);</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item guide-item">
+                        <div class="faq-question">
+                            <h3>Adding Directories</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Add all source files from a directory:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="comment">// Add all .c files in the 'src' directory</span>
+ib_add_source_directory(ws, <span class="string">"src"</span>, <span class="keyword">false</span>); <span class="comment">// Non-recursive</span>
+
+<span class="comment">// Add all .c files in 'src' and its subdirectories</span>
+ib_add_source_directory(ws, <span class="string">"src"</span>, <span class="keyword">true</span>);  <span class="comment">// Recursive</span></code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item guide-item">
+                        <div class="faq-question">
+                            <h3>Include Directories</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Specify include directories for header files:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="comment">// Add the 'include' directory to the include path</span>
+ib_add_include_dir(ws, <span class="string">"include"</span>);
+
+<span class="comment">// Add multiple include directories</span>
+ib_add_include_dir(ws, <span class="string">"third_party/lib1/include"</span>);
+ib_add_include_dir(ws, <span class="string">"third_party/lib2/include"</span>);</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Libraries Section -->
+                <div id="libraries" class="faq-section guide-section">
+                    <h2>Working with Libraries</h2>
+                    <p>IncludeBuild makes it easy to link your project against external libraries.</p>
+                    
+                    <div class="faq-item guide-item">
+                        <div class="faq-question">
+                            <h3>Adding System Libraries</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Link against system libraries:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="comment">// Link against the math library</span>
+ib_add_library(ws, <span class="string">"m"</span>, <span class="keyword">NULL</span>);
+
+<span class="comment">// Link against pthread</span>
+ib_add_library(ws, <span class="string">"pthread"</span>, <span class="keyword">NULL</span>);</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item guide-item">
+                        <div class="faq-question">
+                            <h3>Custom Library Paths</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Specify paths for non-standard library locations:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="comment">// Add a library search directory</span>
+ib_add_library_dir(ws, <span class="string">"/usr/local/lib"</span>);
+ib_add_library_dir(ws, <span class="string">"third_party/libs"</span>);
+
+<span class="comment">// Link against a library in a specific location</span>
+ib_add_library(ws, <span class="string">"customlib"</span>, <span class="string">"third_party/libs"</span>);</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item guide-item">
+                        <div class="faq-question">
+                            <h3>Building and Using Your Own Libraries</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>You can build your own libraries with IncludeBuild:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="comment">// Create a static library</span>
+ib_workspace_t lib_ws = ib_create_workspace();
+ib_add_source_directory(lib_ws, <span class="string">"mylib/src"</span>, <span class="keyword">true</span>);
+ib_set_output_type(lib_ws, IB_STATIC_LIB);
+ib_set_output(lib_ws, <span class="string">"libmylib.a"</span>);
+ib_build(lib_ws);
+ib_destroy_workspace(lib_ws);
+
+<span class="comment">// Now use the library in your main project</span>
+ib_workspace_t main_ws = ib_create_workspace();
+ib_add_source_file(main_ws, <span class="string">"main.c"</span>);
+ib_add_include_dir(main_ws, <span class="string">"mylib/include"</span>);
+ib_add_library(main_ws, <span class="string">"mylib"</span>, <span class="string">"."</span>);
+ib_set_output(main_ws, <span class="string">"myprogram"</span>);
+ib_build(main_ws);
+ib_destroy_workspace(main_ws);</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compilation Section -->
+                <div id="compilation" class="faq-section guide-section">
+                    <h2>Compilation and Linking</h2>
+                    <p>IncludeBuild gives you fine-grained control over the compilation process.</p>
+                    
+                    <div class="faq-item guide-item">
+                        <div class="faq-question">
+                            <h3>Compiler Flags</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Add compiler flags to customize compilation:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="comment">// Enable warnings</span>
+ib_add_compiler_flag(ws, <span class="string">"-Wall"</span>);
+ib_add_compiler_flag(ws, <span class="string">"-Wextra"</span>);
+
+<span class="comment">// Set optimization level</span>
+ib_add_compiler_flag(ws, <span class="string">"-O2"</span>);
+
+<span class="comment">// Enable C++ standard</span>
+ib_add_compiler_flag(ws, <span class="string">"-std=c++17"</span>);</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item guide-item">
+                        <div class="faq-question">
+                            <h3>Linker Flags</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Add linker flags for the linking stage:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="comment">// Create a static executable</span>
+ib_add_linker_flag(ws, <span class="string">"-static"</span>);
+
+<span class="comment">// Set runtime path</span>
+ib_add_linker_flag(ws, <span class="string">"-rpath=/usr/local/lib"</span>);</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item guide-item">
+                        <div class="faq-question">
+                            <h3>Custom Compiler and Linker</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Specify which compiler and linker to use:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="comment">// Use clang instead of gcc</span>
+ib_set_compiler_executable(ws, <span class="string">"clang"</span>);
+ib_set_linker_executable(ws, <span class="string">"clang"</span>);
+
+<span class="comment">// Use a cross-compiler</span>
+ib_set_compiler_executable(ws, <span class="string">"arm-linux-gnueabihf-gcc"</span>);
+ib_set_linker_executable(ws, <span class="string">"arm-linux-gnueabihf-gcc"</span>);</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Customization Section -->
+                <div id="customization" class="faq-section guide-section">
+                    <h2>Advanced Customization</h2>
+                    <p>IncludeBuild is highly customizable and can be tailored to your specific needs.</p>
+                    
+                    <div class="faq-item guide-item">
+                        <div class="faq-question">
+                            <h3>Custom Limits</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Increase the default limits for larger projects by defining macros before including <code>build.h</code>:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="keyword">#define</span> IB_MAX_SOURCE_FILES 1000
+<span class="keyword">#define</span> IB_MAX_INCLUDE_DIRS 100
+<span class="keyword">#define</span> IB_MAX_LIBRARY_DIRS 50
+<span class="keyword">#define</span> IB_MAX_COMPILER_FLAGS 100
+<span class="keyword">#define</span> IB_MAX_LINKER_FLAGS 100
+
+<span class="keyword">#include</span> <span class="string">"build.h"</span></code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item guide-item">
+                        <div class="faq-question">
+                            <h3>Platform-Specific Code</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Use standard C preprocessor conditionals to handle platform-specific configurations:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="keyword">#ifdef</span> _WIN32
+    <span class="comment">// Windows-specific configuration</span>
+    ib_add_compiler_flag(ws, <span class="string">"-DWIN32"</span>);
+    ib_add_library(ws, <span class="string">"winmm"</span>, <span class="keyword">NULL</span>);
+<span class="keyword">#elif</span> defined(__APPLE__)
+    <span class="comment">// macOS-specific configuration</span>
+    ib_add_compiler_flag(ws, <span class="string">"-DMACOS"</span>);
+    ib_add_framework(ws, <span class="string">"Cocoa"</span>);
+<span class="keyword">#else</span>
+    <span class="comment">// Linux/Unix configuration</span>
+    ib_add_compiler_flag(ws, <span class="string">"-DLINUX"</span>);
+    ib_add_library(ws, <span class="string">"X11"</span>, <span class="keyword">NULL</span>);
+<span class="keyword">#endif</span></code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item guide-item">
+                        <div class="faq-question">
+                            <h3>Debugging with Verbose Output</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Enable detailed logging for debugging:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="comment">// Set log level to debug for maximum verbosity</span>
+ib_set_log_level(ws, IB_LOG_DEBUG);
+
+<span class="comment">// Show compiler commands</span>
+ib_set_show_commands(ws, <span class="keyword">true</span>);</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Troubleshooting Section -->
+                <div id="troubleshooting" class="faq-section guide-section">
+                    <h2>Troubleshooting</h2>
+                    <p>Here are some common issues and their solutions when using IncludeBuild.</p>
+                    
+                    <div class="faq-item guide-item">
+                        <div class="faq-question">
+                            <h3>Missing Libraries</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>If you're getting errors about missing libraries, make sure you've correctly specified the library name and path:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="comment">// Ensure library search paths are correct</span>
+ib_add_library_dir(ws, <span class="string">"/usr/local/lib"</span>);
+
+<span class="comment">// Check if you need to explicitly use the path parameter</span>
+ib_add_library(ws, <span class="string">"mylib"</span>, <span class="string">"./lib"</span>);</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item guide-item">
+                        <div class="faq-question">
+                            <h3>Compiler Errors</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>For detailed compiler error messages, increase the log level:</p>
+                            <div class="code-snippet">
+                                <pre><code>ib_set_log_level(ws, IB_LOG_DEBUG);</code></pre>
+                            </div>
+                            <p>Check that you've added all necessary include directories:</p>
+                            <div class="code-snippet">
+                                <pre><code>ib_add_include_dir(ws, <span class="string">"include"</span>);
+ib_add_include_dir(ws, <span class="string">"third_party/include"</span>);</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item guide-item">
+                        <div class="faq-question">
+                            <h3>Resource Limits</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>If you're hitting resource limits, increase them as described in the Advanced Customization section:</p>
+                            <div class="code-snippet">
+                                <pre><code><span class="keyword">#define</span> IB_MAX_SOURCE_FILES 1000
+<span class="keyword">#include</span> <span class="string">"build.h"</span></code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item guide-item">
+                        <div class="faq-question">
+                            <h3>Getting Help</h3>
+                            <span class="faq-toggle"></span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>If you're still having trouble, check out these resources:</p>
+                            <ul class="resource-list">
+                                <li>Consult the <a href="api.html">API Reference</a> for detailed function documentation</li>
+                                <li>Look at the <a href="../examples.html">Examples</a> for working code samples</li>
+                                <li>Check the <a href="../faq.html">FAQ</a> for answers to common questions</li>
+                                <li>Visit the <a href="https://github.com/korzewarrior/includebuild/issues">GitHub Issues</a> page to see if others have had similar problems</li>
+                                <li>Join the <a href="https://discord.gg/includebuild">Discord community</a> for real-time help</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <!-- CTA will be loaded here by JavaScript -->
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <a href="../index.html">
+                    <span class="include">#include</span><span class="build">"build.h"</span>
+                </a>
+                <p class="footer-tagline">The only build system that feels like part of the language</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="../index.html#features">Features</a></li>
+                        <li><a href="../index.html#comparison">Comparison</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="../index.html#get-started">Quick Start</a></li>
+                        <li><a href="../index.html#docs">Documentation</a></li>
+                        <li><a href="../index.html#docs">User Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Community</h4>
+                    <ul>
+                        <li><a href="https://github.com/korzewarrior/includebuild/discussions">Discussions</a></li>
+                        <li><a href="https://github.com/korzewarrior/includebuild/blob/main/CONTRIBUTING.md">Contributing</a></li>
+                        <li><a href="mailto:build@includebuild.com">build@includebuild.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 IncludeBuild. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // Load the CTA section
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctaSection = document.querySelector('.cta-section');
+            fetch('../includes/cta.html')
+                .then(response => response.text())
+                .then(html => {
+                    // Update relative paths for subdirectory
+                    html = html.replace(/href="(?!https?:\/\/)(?!#)([^"]+)"/g, function(match, p1) {
+                        if (p1.startsWith('../') || p1.startsWith('http')) {
+                            return match;
+                        }
+                        return 'href="../' + p1 + '"';
+                    });
+                    ctaSection.innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading CTA section:', error);
+                });
+        });
+
+        // Tab switching functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const categories = document.querySelectorAll('.faq-category');
+            const sections = document.querySelectorAll('.faq-section');
+            
+            categories.forEach(category => {
+                category.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all categories
+                    categories.forEach(c => c.classList.remove('active'));
+                    // Add active class to clicked category
+                    this.classList.add('active');
+                    
+                    // Get the section ID from data attribute or href
+                    const sectionId = this.getAttribute('data-section') || this.getAttribute('href').substring(1);
+                    
+                    // Hide all sections
+                    sections.forEach(section => section.classList.remove('active'));
+                    // Show the selected section
+                    document.getElementById(sectionId).classList.add('active');
+                });
+            });
+            
+            // Toggle for collapsible items
+            const questionDivs = document.querySelectorAll('.faq-question');
+            questionDivs.forEach(div => {
+                div.addEventListener('click', function() {
+                    const item = this.parentNode;
+                    item.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

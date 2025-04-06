@@ -1,48 +1,85 @@
 # IncludeBuild Logging Example
 
-This example demonstrates the enhanced logging and configurable limits features of IncludeBuild.
+This example demonstrates how IncludeBuild provides powerful logging capabilities with minimal code.
+
+## What This Example Shows
+
+IncludeBuild includes a built-in logging system that lets you control message verbosity with just a single function call. This example shows how easy it is to:
+
+1. Change log levels (DEBUG, INFO, WARNING, ERROR)
+2. Use colored output automatically
+3. Toggle verbose build information
+4. Clean build artifacts
+
+## Directory Structure
+
+```
+logging/
+├── build.c       - Minimal build script with logging features
+├── main.c        - Simple application that gets built
+└── README.md     - This file
+```
 
 ## Building and Running
 
-Compile the build script:
+1. Compile the build script:
+   ```bash
+   gcc -o build build.c
+   ```
 
-```bash
-gcc -o build build.c
-```
+2. Run the build script with different log levels:
+   ```bash
+   ./build         # Default INFO level
+   ./build debug   # Most verbose log level
+   ./build warn    # Only warnings and errors
+   ./build error   # Only errors
+   ./build verbose # Toggle verbose mode
+   ./build clean   # Clean and rebuild
+   ```
 
-Run the build script:
+3. Run the compiled program:
+   ```bash
+   ./main
+   ```
 
-```bash
-./build
-```
+## How It Works
 
-This will:
-1. Build the project with DEBUG level logging (most verbose)
-2. Clean the project
-3. Rebuild with ERROR-only logging (least verbose)
-
-## Configurable Limits
-
-IncludeBuild allows you to customize the limits used in the build system by defining them before including the header:
+The entire build script is just a few lines of code:
 
 ```c
-// Example: Custom limits for a larger project
-#define IB_MAX_FILES 5000  // Default is 1000
-#define IB_MAX_DEPS 500    // Default is 100
-#include "build.h"
+#include "../../build.h"
+#include <stdio.h>
+#include <string.h>
+
+int main(int argc, char** argv) {
+    // Initialize IncludeBuild
+    ib_init();
+    
+    // Enable verbose output to see what's happening
+    g_config.verbose = true;
+    
+    // Set log level if specified
+    if (argc > 1 && strcmp(argv[1], "debug") == 0)
+        ib_set_log_level(IB_LOG_DEBUG);
+    
+    // Build the project - build.h handles everything
+    ib_build();
+    
+    return 0;
+}
 ```
+
+IncludeBuild does all the work for you - finding source files, compiling them, and creating the executable.
 
 ## Log Levels
 
-IncludeBuild supports the following log levels:
+IncludeBuild supports these log levels:
 
-- `IB_LOG_ERROR` - Only show errors (most critical)
-- `IB_LOG_WARN` - Show errors and warnings
-- `IB_LOG_INFO` - Show normal informational messages (default)
-- `IB_LOG_DEBUG` - Show detailed debug information (most verbose)
+- `IB_LOG_DEBUG` - All messages (most verbose)
+- `IB_LOG_INFO` - Informational messages (default)
+- `IB_LOG_WARN` - Only warnings and errors
+- `IB_LOG_ERROR` - Only error messages
 
-You can set the log level using:
+## Learn More
 
-```c
-ib_set_log_level(IB_LOG_DEBUG);
-``` 
+For more information about IncludeBuild's logging features, check the main documentation. 

@@ -1,19 +1,24 @@
-#include "../../src/build.h"
+/**
+ * IncludeBuild Basic Example
+ * 
+ * This demonstrates how simple it is to build a basic single-file project.
+ * Just include build.h, call ib_init() and ib_build() - that's it!
+ */
+
+#include "../../build.h"
+#include <stdio.h>
 
 int main() {
-    // Initialize IncludeBuild with default settings
+    // Initialize IncludeBuild
     ib_init();
     
-    // Set the name of the executable to 'basic'
-    ib_add_target("basic", "main.c");
-    
     // Enable verbose output to see what's happening
-    g_config.verbose = true;
+    ib_set_verbose(true);
     
-    // Build the project
+    // Build the project - build.h will find main.c automatically
     ib_build();
     
-    printf("\nBuild complete. Run './build/basic' to execute the program.\n");
+    printf("\nBuild complete! Run './main' to execute the program.\n");
     
     return 0;
 } 

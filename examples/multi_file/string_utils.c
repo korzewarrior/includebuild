@@ -27,7 +27,7 @@ char* reverse_string(char* str) {
     return str;
 }
 
-char* to_uppercase(char* str) {
+char* to_upper(char* str) {
     if (str == NULL) {
         return NULL;
     }
@@ -35,6 +35,20 @@ char* to_uppercase(char* str) {
     char* p = str;
     while (*p) {
         *p = toupper((unsigned char)*p);
+        p++;
+    }
+    
+    return str;
+}
+
+char* to_lower(char* str) {
+    if (str == NULL) {
+        return NULL;
+    }
+    
+    char* p = str;
+    while (*p) {
+        *p = tolower((unsigned char)*p);
         p++;
     }
     

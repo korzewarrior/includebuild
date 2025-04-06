@@ -20,6 +20,13 @@ char* reverse_string(char* str);
  * @param str The string to convert
  * @return Pointer to the uppercase string (same as input)
  */
-char* to_uppercase(char* str);
+char* to_upper(char* str);
+
+/**
+ * Converts a string to lowercase in-place
+ * @param str The string to convert
+ * @return Pointer to the lowercase string (same as input)
+ */
+char* to_lower(char* str);
 
 #endif /* STRING_UTILS_H */ 
