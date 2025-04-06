@@ -285,6 +285,6 @@ If you run into issues:
 
 - Check the [FAQ](./faq.md) for common questions
 - Read the [API Documentation](./api.md) for detailed information
-- Open an issue on [GitHub](https://github.com/includebuild/includebuild/issues)
+- Open an issue on [GitHub](https://github.com/korzewarrior/includebuild/issues)
 
 Remember, one benefit of IncludeBuild is that the entire system is in a single C header file, so you can read and modify it yourself if needed! 
