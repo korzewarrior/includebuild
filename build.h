@@ -76,6 +76,10 @@
 #define IB_MAX_LIBRARY_PATHS 50
 #endif
 
+// Whether to run the executable after building
+static bool g_run_after_build = false;
+static char g_executable_name[IB_MAX_PATH] = {0};
+
 // Logging levels
 typedef enum {
     IB_LOG_ERROR = 0,
@@ -180,6 +184,64 @@ void ib_exclude_file(const char* file);
 bool ib_build_static_library(const char* name, const char* main_source, const char* exclude_file);
 bool ib_build_dynamic_library(const char* name, const char* main_source, const char* exclude_file);
 const char* ib_version(void);
+
+/**
+ * Set whether to run the executable after building
+ * @param run_after_build Whether to run the executable after build
+ * @param executable_name Name of the executable to run (if NULL, will run first target)
+ */
+void ib_set_run_after_build(bool run_after_build, const char* executable_name) {
+    if (!g_initialized) {
+        ib_error("IncludeBuild not initialized. Call ib_init() first.");
+        return;
+    }
+    
+    g_run_after_build = run_after_build;
+    
+    if (executable_name && executable_name[0] != '\0') {
+        strncpy(g_executable_name, executable_name, IB_MAX_PATH - 1);
+        g_executable_name[IB_MAX_PATH - 1] = '\0';
+    } else {
+        g_executable_name[0] = '\0'; // Use default target
+    }
+    
+    ib_log_message(IB_LOG_INFO, "Automatic run after build: %s", run_after_build ? "enabled" : "disabled");
+}
+
+/**
+ * Run an executable with the appropriate environment variables
+ * @param executable_name Name of the executable to run
+ * @return true if successful, false otherwise
+ */
+bool ib_run_executable(const char* executable_name) {
+    if (!g_initialized) {
+        ib_error("IncludeBuild not initialized. Call ib_init() first.");
+        return false;
+    }
+    
+    if (!executable_name || executable_name[0] == '\0') {
+        ib_error("No executable name specified");
+        return false;
+    }
+    
+    if (!ib_file_exists(executable_name)) {
+        ib_error("Executable not found: %s", executable_name);
+        return false;
+    }
+    
+    ib_log_message(IB_LOG_INFO, "Running executable: %s", executable_name);
+    
+    // Construct the command to run the executable
+    // On Unix systems, include the current directory in the library path
+    char cmd[IB_MAX_CMD];
+    #ifdef _WIN32
+    snprintf(cmd, IB_MAX_CMD, "%s", executable_name);
+    #else
+    snprintf(cmd, IB_MAX_CMD, "LD_LIBRARY_PATH=\"$(pwd)/lib:$LD_LIBRARY_PATH\" ./%s", executable_name);
+    #endif
+    
+    return ib_execute_command(cmd);
+}
 
 /**
  * Automatically build a complete library with minimal configuration
@@ -673,6 +735,22 @@ bool ib_build(void) {
     }
     
     ib_log_message(IB_LOG_INFO, "Build complete. Compiled %d files.", num_compiled);
+    
+    // Run the executable if requested
+    if (g_run_after_build) {
+        const char* executable = g_executable_name;
+        
+        // If no specific executable was specified, use the first target
+        if (executable[0] == '\0' && g_num_targets > 0) {
+            executable = g_targets[0].name;
+        }
+        
+        if (executable && executable[0] != '\0') {
+            ib_log_message(IB_LOG_INFO, "Running executable after build: %s", executable);
+            ib_run_executable(executable);
+        }
+    }
+    
     return true;
 }
 
